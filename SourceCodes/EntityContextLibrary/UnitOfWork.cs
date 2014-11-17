@@ -12,7 +12,7 @@ namespace Aliencube.EntityContextLibrary
     /// </summary>
     /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
     public class UnitOfWork<TContext> : IUnitOfWork<TContext>
-        where TContext : DbContextBase
+        where TContext : DbContext
     {
         private readonly IDbContextFactory _contextFactory;
 

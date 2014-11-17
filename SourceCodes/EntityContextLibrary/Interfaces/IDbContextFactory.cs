@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary.Interfaces
 {
     /// <summary>
-    /// This provides interfaces to the <c>DbContextFactoryBase</c> class.
+    /// This provides interfaces to the <c>DbContextFactory</c> class.
     /// </summary>
     public interface IDbContextFactory : IDisposable
     {
         /// <summary>
-        /// Gets the <c>DbContextBase</c> instance.
+        /// Gets the <c>DbContext</c> instance.
         /// </summary>
-        /// <returns>Returns the <c>DbContextBase</c> instance.</returns>
-        DbContextBase Get();
+        /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        DbContext Get();
     }
 }

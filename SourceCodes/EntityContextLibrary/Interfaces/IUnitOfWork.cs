@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary.Interfaces
 {
@@ -7,7 +8,7 @@ namespace Aliencube.EntityContextLibrary.Interfaces
     /// </summary>
     /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
     public interface IUnitOfWork<TContext> : IDisposable
-        where TContext : DbContextBase
+        where TContext : DbContext
     {
         /// <summary>
         /// Begins database transactions.

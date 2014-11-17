@@ -49,8 +49,7 @@
     <Compile Include="..\..\Documents\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DbContextBase.cs" />
-    <Compile Include="DbContextFactoryBase.cs" />
+    <Compile Include="DbContextFactory.cs" />
     <Compile Include="Interfaces\IDbContextFactory.cs" />
     <Compile Include="Interfaces\IRepositoryBase.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -65,6 +64,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+if not exist "$(SolutionDir)..\Libraries\$(TargetName)" (
+    mkdir "$(SolutionDir)..\Libraries\$(TargetName)"
+)
+
+xcopy "$(TargetDir)*.*" "$(SolutionDir)..\Libraries\$(TargetName)" /y /e
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

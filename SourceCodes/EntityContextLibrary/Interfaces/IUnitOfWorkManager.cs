@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary.Interfaces
 {
@@ -12,6 +13,6 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
         /// <returns>Returns a new <c>UnitOfWork</c> instance.</returns>
-        UnitOfWork<TContext> CreateInstance<TContext>() where TContext : DbContextBase;
+        UnitOfWork<TContext> CreateInstance<TContext>() where TContext : DbContext;
     }
 }

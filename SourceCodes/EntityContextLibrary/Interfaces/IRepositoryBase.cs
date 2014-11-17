@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,6 +11,11 @@ namespace Aliencube.EntityContextLibrary.Interfaces
     /// <typeparam name="TEntity">Entity model type.</typeparam>
     public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class
     {
+        /// <summary>
+        /// Gets the <c>DbContext</c> instance.
+        /// </summary>
+        DbContext Context { get; }
+
         /// <summary>
         /// Gets the collection of entities queriable
         /// </summary>

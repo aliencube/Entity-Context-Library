@@ -1,5 +1,6 @@
 ﻿using Aliencube.EntityContextLibrary.Interfaces;
 using System;
+using System.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary
 {
@@ -32,7 +33,7 @@ namespace Aliencube.EntityContextLibrary
         /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
         /// <returns>Returns a new <c>UnitOfWork</c> instance.</returns>
         public UnitOfWork<TContext> CreateInstance<TContext>()
-            where TContext : DbContextBase
+            where TContext : DbContext
         {
             return new UnitOfWork<TContext>(this._contextFactory);
         }

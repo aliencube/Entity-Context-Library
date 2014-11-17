@@ -35,9 +35,9 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Gets the DbContext instance.
+        /// Gets the <c>DbContext</c> instance.
         /// </summary>
-        protected DbContext Context
+        public DbContext Context
         {
             get
             {
