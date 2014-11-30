@@ -66,11 +66,12 @@ namespace Aliencube.EntityContextLibrary
         {
             get
             {
-                if (this._dbContext == null)
+                if (this._dbContext != null)
                 {
-                    this._dbContext = this.GetDbContext();
+                    return this._dbContext;
                 }
 
+                this._dbContext = this.GetDbContext();
                 this._objectContext = ((IObjectContextAdapter)this._dbContext).ObjectContext;
                 this.OpenDbConnection();
 
@@ -83,10 +84,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         public void BeginTransaction()
         {
-            if (this.GetConnectionState(this._objectContext) == ConnectionState.Open)
-            {
-                this._transaction = this._objectContext.Connection.BeginTransaction();
-            }
+            this.OpenDbConnection();
+            this._transaction = this._objectContext.Connection.BeginTransaction();
         }
 
         /// <summary>
@@ -188,8 +187,8 @@ namespace Aliencube.EntityContextLibrary
                 this._objectContext.Connection.Close();
             }
 
-            this.Context.Dispose();
-            this._contextFactory.Dispose();
+            //this.Context.Dispose();
+            //this._contextFactory.Dispose();
 
             this._disposed = true;
         }

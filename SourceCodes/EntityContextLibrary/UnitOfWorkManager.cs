@@ -49,7 +49,7 @@ namespace Aliencube.EntityContextLibrary
                 return;
             }
 
-            this._contextFactory.Dispose();
+            //this._contextFactory.Dispose();
 
             this._disposed = true;
         }
