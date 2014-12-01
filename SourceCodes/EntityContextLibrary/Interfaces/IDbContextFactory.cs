@@ -12,6 +12,13 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// Gets the <c>DbContext</c> instance.
         /// </summary>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        [Obsolete("Use CreateContext() instead.")]
         DbContext Get();
+
+        /// <summary>
+        /// Creates the <c>DbContext</c> instance.
+        /// </summary>
+        /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        DbContext CreateContext();
     }
 }

@@ -43,7 +43,7 @@ namespace Aliencube.EntityContextLibrary
             {
                 if (this._context == null)
                 {
-                    this._context = this._contextFactory.Get();
+                    this._context = this._contextFactory.CreateContext();
                 }
 
                 return this._context;

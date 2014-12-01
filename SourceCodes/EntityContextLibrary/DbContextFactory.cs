@@ -5,7 +5,7 @@ using System.Data.Entity;
 namespace Aliencube.EntityContextLibrary
 {
     /// <summary>
-    /// This represents the <c>DbContextFactoryBase</c> class which must be inherited.
+    /// This represents the factory entity for <c>DbContext</c>.
     /// </summary>
     public class DbContextFactory<TContext> : IDbContextFactory where TContext : DbContext
     {
@@ -14,9 +14,9 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
-        /// Initialises a new instance of the <c>ChangeNotificationContextFactory</c> class.
+        /// Initialises a new instance of the <c>DbContextFactory</c> class.
         /// </summary>
-        private void InitialiseContext()
+        private void Initialise()
         {
             this._dbContext = Activator.CreateInstance<TContext>();
         }
@@ -25,11 +25,26 @@ namespace Aliencube.EntityContextLibrary
         /// Gets the <c>DbContext</c> instance.
         /// </summary>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        [Obsolete("Use CreateContext() instead.")]
         public virtual DbContext Get()
         {
             if (this._dbContext == null)
             {
-                this.InitialiseContext();
+                this.Initialise();
+            }
+
+            return this._dbContext;
+        }
+
+        /// <summary>
+        /// Creates the <c>DbContext</c> instance.
+        /// </summary>
+        /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        public virtual DbContext CreateContext()
+        {
+            if (this._dbContext == null)
+            {
+                this.Initialise();
             }
 
             return this._dbContext;

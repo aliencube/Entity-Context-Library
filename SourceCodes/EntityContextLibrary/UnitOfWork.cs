@@ -39,12 +39,12 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Gets the <c>DbContext</c> from the ContextFactory instance.
+        /// Gets the <c>DbContext</c> from the <c>DbContextFactory</c> instance.
         /// </summary>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>
         private TContext GetDbContext()
         {
-            var dbContext = (TContext)Convert.ChangeType(this._contextFactory.Get(), typeof(TContext));
+            var dbContext = (TContext)Convert.ChangeType(this._contextFactory.CreateContext(), typeof(TContext));
             return dbContext;
         }
 
