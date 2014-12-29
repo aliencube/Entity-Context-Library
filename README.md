@@ -3,6 +3,11 @@
 **Entity Context Library (ECL)** provides a common and reusable interfaces for projects using [Entity Framework](http://www.asp.net/entity-framework).
 
 
+## Package Status ##
+
+* **Entity Context Library** [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) [![](https://img.shields.io/nuget/dt/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/)
+
+
 ## Getting Started ##
 
 **ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IRepositoryBase`, `IUnitOfWork` and `IUnitOfWorkManager`.
