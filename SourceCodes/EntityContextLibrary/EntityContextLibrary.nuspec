@@ -3,7 +3,7 @@
     <metadata>
         <id>Aliencube.EntityContextLibrary</id>
         <version>1.0.1.1</version>
-        <title>DbContext Library for Entity Framework, UnitOfWork and Repositories</title>
+        <title>Entity Framework Context Library</title>
         <authors>Aliencube Community</authors>
         <owners>aliencube</owners>
         <licenseUrl>https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE</licenseUrl>
