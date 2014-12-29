@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>Aliencube.EntityContextLibrary</id>
+        <version>1.0.1.1</version>
+        <title>DbContext Library for Entity Framework, UnitOfWork and Repositories</title>
+        <authors>Aliencube Community</authors>
+        <owners>aliencube</owners>
+        <licenseUrl>https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/aliencube/Entity-Context-Library</projectUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Entity Context Library provides a factory class for DbContext, UnitOfWork class for transaction and a base repository class to be used for each database entity.</description>
+        <copyright>Aliencube Community Copyright 2014</copyright>
+        <tags>Aliencube, EntityFramework, DbContext, UnitOfWork, Repository Pattern</tags>
+        <dependencies>
+            <dependency id="EntityFramework" version="6.0.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\**\Aliencube.EntityContextLibrary.*" target="lib" exclude="**\*.config" />
+    </files>
+</package>
