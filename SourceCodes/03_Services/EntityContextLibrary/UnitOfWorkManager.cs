@@ -1,6 +1,6 @@
-﻿using Aliencube.EntityContextLibrary.Interfaces;
-using System;
+﻿using System;
 using System.Data.Entity;
+using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
 {

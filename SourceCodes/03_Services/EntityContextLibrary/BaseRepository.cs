@@ -1,16 +1,17 @@
-﻿using Aliencube.EntityContextLibrary.Interfaces;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
 {
     /// <summary>
-    /// This represents the <c>RepositoryBase</c> class that must be inherited.
+    /// This represents the <c>BaseRepository</c> class that must be inherited.
     /// </summary>
     /// <typeparam name="TEntity">Entity model class type.</typeparam>
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         private readonly IDbContextFactory _contextFactory;
         private readonly IDbSet<TEntity> _dbSet;
@@ -19,10 +20,10 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
-        /// Initialises a new instance of the <c>RepositoryBase</c> class.
+        /// Initialises a new instance of the <c>BaseRepository</c> class.
         /// </summary>
         /// <param name="contextFactory"><c>DbContextFactory</c> instance.</param>
-        protected RepositoryBase(IDbContextFactory contextFactory)
+        public BaseRepository(IDbContextFactory contextFactory)
         {
             if (contextFactory == null)
             {
@@ -87,30 +88,64 @@ namespace Aliencube.EntityContextLibrary
         /// <summary>
         /// Adds the new entity.
         /// </summary>
-        /// <param name="entityToAdd">Entity instance to add.</param>
-        public virtual void Add(TEntity entityToAdd)
+        /// <param name="entity">Entity instance to add.</param>
+        public virtual void Add(TEntity entity)
         {
-            if (entityToAdd.Equals(default(TEntity)))
+            if (entity.Equals(default(TEntity)))
             {
-                throw new ArgumentNullException("entityToAdd");
+                throw new ArgumentNullException("entity");
             }
 
-            this._dbSet.Add(entityToAdd);
+            this._dbSet.Add(entity);
+        }
+
+        /// <summary>
+        /// Adds the new list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to add.</param>
+        public virtual void AddRange(IEnumerable<TEntity> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            foreach (var entity in entities)
+            {
+                this.Add(entity);
+            }
         }
 
         /// <summary>
         /// Updates the existing entity.
         /// </summary>
-        /// <param name="entityToUpdate">Entity instance to update.</param>
-        public virtual void Update(TEntity entityToUpdate)
+        /// <param name="entity">Entity instance to update.</param>
+        public virtual void Update(TEntity entity)
         {
-            if (entityToUpdate.Equals(default(TEntity)))
+            if (entity.Equals(default(TEntity)))
             {
-                throw new ArgumentNullException("entityToUpdate");
+                throw new ArgumentNullException("entity");
             }
 
-            this._dbSet.Attach(entityToUpdate);
-            this.Context.Entry(entityToUpdate).State = EntityState.Modified;
+            this._dbSet.Attach(entity);
+            this.Context.Entry(entity).State = EntityState.Modified;
+        }
+
+        /// <summary>
+        /// Updates the existing list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        public virtual void UpdateRange(IEnumerable<TEntity> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            foreach (var entity in entities)
+            {
+                this.Update(entity);
+            }
         }
 
         /// <summary>
@@ -124,27 +159,61 @@ namespace Aliencube.EntityContextLibrary
                 throw new ArgumentOutOfRangeException("entityId");
             }
 
-            var entityToDelete = this._dbSet.Find(entityId);
-            this.Delete(entityToDelete);
+            var entity = this._dbSet.Find(entityId);
+            this.Delete(entity);
+        }
+
+        /// <summary>
+        /// Deletes the list of entities corresponding to the entityIds fro the DB set.
+        /// </summary>
+        /// <param name="entityIds">List of entityIds as primary keys.</param>
+        public virtual void DeleteRange(IEnumerable<object> entityIds)
+        {
+            if (entityIds == null)
+            {
+                throw new ArgumentNullException("entityIds");
+            }
+
+            foreach (var entityId in entityIds)
+            {
+                this.Delete(entityId);
+            }
         }
 
         /// <summary>
         /// Deletes the entity from the DB set.
         /// </summary>
-        /// <param name="entityToDelete">Entity instance to delete.</param>
-        public virtual void Delete(TEntity entityToDelete)
+        /// <param name="entity">Entity instance to delete.</param>
+        public virtual void Delete(TEntity entity)
         {
-            if (entityToDelete.Equals(default(TEntity)))
+            if (entity.Equals(default(TEntity)))
             {
-                throw new ArgumentNullException("entityToDelete");
+                throw new ArgumentNullException("entity");
             }
 
-            if (this.Context.Entry(entityToDelete).State == EntityState.Detached)
+            if (this.Context.Entry(entity).State == EntityState.Detached)
             {
-                this._dbSet.Attach(entityToDelete);
+                this._dbSet.Attach(entity);
             }
 
-            this._dbSet.Remove(entityToDelete);
+            this._dbSet.Remove(entity);
+        }
+
+        /// <summary>
+        /// Deletes the list of entities from the DB set.
+        /// </summary>
+        /// <param name="entities">List of entity instances to delete.</param>
+        public virtual void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            foreach (var entity in entities)
+            {
+                this.Delete(entity);
+            }
         }
 
         /// <summary>

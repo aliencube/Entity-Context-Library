@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>Aliencube.EntityContextLibrary</id>
-        <version>1.0.1.1</version>
+        <version>1.0.2.0</version>
         <title>Entity Framework Context Library</title>
         <authors>Aliencube Community</authors>
         <owners>aliencube</owners>
@@ -11,7 +11,7 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>Entity Context Library provides a factory class for DbContext, UnitOfWork class for transaction and a base repository class to be used for each database entity.</description>
         <copyright>Aliencube Community Copyright 2014</copyright>
-        <tags>Aliencube, EntityFramework, DbContext, UnitOfWork, Repository Pattern</tags>
+        <tags>Aliencube, EntityFramework, EF, EF6, DbContext, UnitOfWork, RepositoryPattern</tags>
         <dependencies>
             <dependency id="EntityFramework" version="6.0.0" />
         </dependencies>

@@ -9,13 +9,6 @@ namespace Aliencube.EntityContextLibrary.Interfaces
     public interface IDbContextFactory : IDisposable
     {
         /// <summary>
-        /// Gets the <c>DbContext</c> instance.
-        /// </summary>
-        /// <returns>Returns the <c>DbContext</c> instance.</returns>
-        [Obsolete("Use CreateContext() instead.")]
-        DbContext Get();
-
-        /// <summary>
         /// Creates the <c>DbContext</c> instance.
         /// </summary>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>

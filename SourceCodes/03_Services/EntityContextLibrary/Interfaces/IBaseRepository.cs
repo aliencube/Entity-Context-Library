@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -6,10 +7,10 @@ using System.Linq.Expressions;
 namespace Aliencube.EntityContextLibrary.Interfaces
 {
     /// <summary>
-    /// This provides interfaces to the <c>RepositoryBase</c> class.
+    /// This provides interfaces to the <c>BaseRepository</c> class.
     /// </summary>
     /// <typeparam name="TEntity">Entity model type.</typeparam>
-    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class
+    public interface IBaseRepository<TEntity> : IDisposable where TEntity : class
     {
         /// <summary>
         /// Gets the <c>DbContext</c> instance.
@@ -39,14 +40,26 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// <summary>
         /// Adds the new entity.
         /// </summary>
-        /// <param name="entityToAdd">Entity instance to add.</param>
-        void Add(TEntity entityToAdd);
+        /// <param name="entity">Entity instance to add.</param>
+        void Add(TEntity entity);
+
+        /// <summary>
+        /// Adds the new list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to add.</param>
+        void AddRange(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Updates the existing entity.
         /// </summary>
-        /// <param name="entityToUpdate">Entity instance to update.</param>
-        void Update(TEntity entityToUpdate);
+        /// <param name="entity">Entity instance to update.</param>
+        void Update(TEntity entity);
+
+        /// <summary>
+        /// Updates the existing list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        void UpdateRange(IEnumerable<TEntity> entities);
 
         /// <summary>
         /// Deletes the entity corresponding to the entityId fro the DB set.
@@ -55,9 +68,21 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         void Delete(object entityId);
 
         /// <summary>
+        /// Deletes the list of entities corresponding to the entityIds fro the DB set.
+        /// </summary>
+        /// <param name="entityIds">List of entityIds as primary keys.</param>
+        void DeleteRange(IEnumerable<object> entityIds);
+
+        /// <summary>
         /// Deletes the entity from the DB set.
         /// </summary>
-        /// <param name="entityToDelete">Entity instance to delete.</param>
-        void Delete(TEntity entityToDelete);
+        /// <param name="entity">Entity instance to delete.</param>
+        void Delete(TEntity entity);
+
+        /// <summary>
+        /// Deletes the list of entities from the DB set.
+        /// </summary>
+        /// <param name="entities">List of entity instances to delete.</param>
+        void DeleteRange(IEnumerable<TEntity> entities);
     }
 }

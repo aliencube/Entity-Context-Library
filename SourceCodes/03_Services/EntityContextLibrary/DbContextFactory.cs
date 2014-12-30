@@ -1,6 +1,6 @@
-﻿using Aliencube.EntityContextLibrary.Interfaces;
-using System;
+﻿using System;
 using System.Data.Entity;
+using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
 {
@@ -19,21 +19,6 @@ namespace Aliencube.EntityContextLibrary
         private void Initialise()
         {
             this._dbContext = Activator.CreateInstance<TContext>();
-        }
-
-        /// <summary>
-        /// Gets the <c>DbContext</c> instance.
-        /// </summary>
-        /// <returns>Returns the <c>DbContext</c> instance.</returns>
-        [Obsolete("Use CreateContext() instead.")]
-        public virtual DbContext Get()
-        {
-            if (this._dbContext == null)
-            {
-                this.Initialise();
-            }
-
-            return this._dbContext;
         }
 
         /// <summary>
