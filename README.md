@@ -49,7 +49,7 @@ public static class Program
 
 ```csharp
 // Assuming that the contextFactory instance already exists.
-IBaseRepository productRepository = new BaseRepository<Product>(contextFactory);
+IBaseRepository<Product> productRepository = new BaseRepository<Product>(contextFactory);
 
 var product = new Product() { ProductId = 1 };
 productRepository.Add(product);
