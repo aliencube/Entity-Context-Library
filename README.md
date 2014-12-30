@@ -10,7 +10,7 @@
 
 ## Getting Started ##
 
-**ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IRepositoryBase`, `IUnitOfWork` and `IUnitOfWorkManager`.
+**ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IBaseRepository`, `IUnitOfWork` and `IUnitOfWorkManager`.
 
 
 ### `IDbContextFactory` ###
@@ -43,17 +43,27 @@ public static class Program
 ```
 
 
-### `IRepositoryBase` ###
+### `IBaseRepository` ###
 
-`IRepositoryBase` interface provides a basic CRUD methods for each repository representing a table in a database. Therefore, each repository can just inherit the base repository class and use it. In addition to this, all methods like `Get`, `Add`, `Update` and `Delete` methods are overrideable, so you can redefine your way of `SELECT`, `INSERT`, `UPDATE` and `DELETE` actions. Here's a sample usage.
+`IBaseRepository` interface provides a basic CRUD methods for each repository representing a table in a database. Therefore, each repository can just inherit the base repository class and use it. In addition to this, all methods like `Get`, `Add`, `AddRange`, `Update`, `UpdateRange`, `Delete` and `DeleteRange` methods are overrideable, so you can redefine your way of `SELECT`, `INSERT`, `UPDATE` and `DELETE` actions. Here's a sample usage.
 
 ```csharp
-public interface IProductRepository : IRepositoryBase<Product>
+// Assuming that the contextFactory instance already exists.
+IBaseRepository productRepository = new BaseRepository<Product>(contextFactory);
+
+var product = new Product() { ProductId = 1 };
+productRepository.Add(product);
+```
+
+If you want to extend more, you can do the following:
+
+```csharp
+public interface IProductRepository : IBaseRepository<Product>
 {
   // You can put as many methods as you want here.
 }
 
-public class ProductRepository : RepositoryBase<Product>, IProductRepository
+public class ProductRepository : BaseRepository<Product>, IProductRepository
 {
   public ProductRepository(IDbContextFactory contextFactory)
     : base(contextFactory)
@@ -62,14 +72,23 @@ public class ProductRepository : RepositoryBase<Product>, IProductRepository
 
   // You can here implement methods defined in the interface above. 
 }
-```
 
-Of course you can put as many methods as you want in the repository, like `AddRange(IEnumerable<Product> products)`.
+...
+
+IProductRepository productRepository = new ProductRepository(contextFactory);
+
+var product = new Product() { ProductId = 1 };
+productRepository.Add(product);
+```
 
 With `Autofac`, you can put a line of code into the IoC container:
 
 ```csharp
-// Register ProductRepository.
+// Register Product Repository #1:
+builder.Register(p => new BaseRepository<Product>(p.ResolveNamed<IDbContextFactory>(SERVICE_NAME)))
+       .As<IBaseRepository<Product>>();
+
+// Register Product Repository #2:
 builder.Register(p => new ProductRepository(p.ResolveNamed<IDbContextFactory>(SERVICE_NAME)))
        .As<IProductRepository>();
 ```
