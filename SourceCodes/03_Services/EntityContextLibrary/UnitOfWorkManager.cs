@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
@@ -9,22 +11,27 @@ namespace Aliencube.EntityContextLibrary
     /// </summary>
     public class UnitOfWorkManager : IUnitOfWorkManager
     {
-        private readonly IDbContextFactory _contextFactory;
+        private readonly IEnumerable<IDbContextFactory> _contextFactories;
 
         private bool _disposed;
 
         /// <summary>
         /// Initialises a new instance of the <c>UnitOfWorkManager</c> class.
         /// </summary>
-        /// <param name="contextFactory"><c>DbContextFactory</c> instance.</param>
-        public UnitOfWorkManager(IDbContextFactory contextFactory)
+        /// <param name="contextFactories">List of the <c>DbContextFactory</c> instances.</param>
+        public UnitOfWorkManager(params IDbContextFactory[] contextFactories)
         {
-            if (contextFactory == null)
+            if (contextFactories == null)
             {
-                throw new ArgumentNullException("contextFactory");
+                throw new ArgumentNullException("contextFactories");
             }
 
-            this._contextFactory = contextFactory;
+            if (contextFactories.Length == 0)
+            {
+                throw new InvalidOperationException("No parameter provided");
+            }
+
+            this._contextFactories = contextFactories;
         }
 
         /// <summary>
@@ -32,10 +39,16 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
         /// <returns>Returns a new <c>UnitOfWork</c> instance.</returns>
-        public UnitOfWork<TContext> CreateInstance<TContext>()
-            where TContext : DbContext
+        public UnitOfWork<TContext> CreateInstance<TContext>() where TContext : DbContext
         {
-            return new UnitOfWork<TContext>(this._contextFactory);
+            var contextFactory = this._contextFactories
+                                     .SingleOrDefault(p => p.DbContextType == typeof(TContext));
+            if (contextFactory == null)
+            {
+                throw new InvalidOperationException("No DbContext found");
+            }
+
+            return new UnitOfWork<TContext>(contextFactory);
         }
 
         /// <summary>
