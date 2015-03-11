@@ -14,6 +14,17 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
+        /// Gets the type of the <c>DbContext</c> instance.
+        /// </summary>
+        public Type DbContextType
+        {
+            get
+            {
+                return typeof(TContext);
+            }
+        }
+
+        /// <summary>
         /// Initialises a new instance of the <c>DbContextFactory</c> class.
         /// </summary>
         private void Initialise()
