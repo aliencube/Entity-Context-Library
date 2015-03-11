@@ -2,13 +2,23 @@
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
-    public class TestContext : DbContext
+    public class ProductContext : DbContext
     {
-        public TestContext()
-            : base("Name=TestContext")
+        public ProductContext()
+            : base("Name=ProductContext")
         {
         }
 
         public IDbSet<Product> Products { get; set; }
+    }
+
+    public class UserContext : DbContext
+    {
+        public UserContext()
+            : base("Name=UserContext")
+        {
+        }
+
+        public IDbSet<User> Users { get; set; }
     }
 }

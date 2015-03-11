@@ -11,15 +11,16 @@ namespace Aliencube.EntityContextLibrary.Tests
     [TestFixture]
     public class RepositoryTest
     {
-        private TestContext _context;
+        private ProductContext _context;
         private IDbContextFactory _factory;
         private IBaseRepository<Product> _repository;
 
         [SetUp]
         public void Init()
         {
-            this._context = Substitute.For<TestContext>();
+            this._context = Substitute.For<ProductContext>();
             this._factory = Substitute.For<IDbContextFactory>();
+            this._factory.DbContextType.Returns(typeof(ProductContext));
         }
 
         [TearDown]
