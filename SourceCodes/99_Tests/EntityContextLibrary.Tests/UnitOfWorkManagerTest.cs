@@ -1,15 +1,10 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using Aliencube.EntityContextLibrary.Interfaces;
+﻿using Aliencube.EntityContextLibrary.Interfaces;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
-    using System.Collections.Generic;
-
     [TestFixture]
     public class UnitOfWorkManagerTest
     {
@@ -22,8 +17,8 @@ namespace Aliencube.EntityContextLibrary.Tests
         [SetUp]
         public void Init()
         {
-            this._productContext = Substitute.For<ProductContext>();
-            this._userContext = Substitute.For<UserContext>();
+            this._productContext = new ProductContext();
+            this._userContext = new UserContext();
 
             this._productContextFactory = Substitute.For<IDbContextFactory>();
             this._userContextFactory = Substitute.For<IDbContextFactory>();
@@ -64,27 +59,16 @@ namespace Aliencube.EntityContextLibrary.Tests
         }
 
         [Test]
-        [TestCase(3)]
-        public void GetContext_GivenDetails_ReturnContext(int count)
+        public void GetContext_GivenDetails_ReturnContext()
         {
-            var products = ProductHelper.CreateProducts(count);
-            var productsAdded = ProductHelper.CreateProducts(count, count);
-            var productDbSet = Substitute.For<DbSet<Product>, IQueryable<Product>, IDbAsyncEnumerable<Product>>().SetupData(products);
-            productDbSet.AddRange(Arg.Any<IEnumerable<Product>>()).Returns(productsAdded);
-
-            var users = UserHelper.CreateUsers(count);
-            var usersAdded = UserHelper.CreateUsers(count, count);
-            var userDbSet = Substitute.For<DbSet<User>, IQueryable<User>, IDbAsyncEnumerable<User>>().SetupData(users);
-            userDbSet.AddRange(Arg.Any<IEnumerable<User>>()).Returns(usersAdded);
-
-            this._productContext.Products.Returns(productDbSet);
-            this._userContext.Users.Returns(userDbSet);
-
             this._productContextFactory.CreateContext().Returns(this._productContext);
             this._userContextFactory.CreateContext().Returns(this._userContext);
 
-            var context = this._uowm.CreateInstance<ProductContext>();
-            context.GetType().Should().BeOfType<ProductContext>();
+            var puow = this._uowm.CreateInstance<ProductContext>();
+            puow.DbContextType.Should().Be<ProductContext>();
+
+            var uuow = this._uowm.CreateInstance<UserContext>();
+            uuow.DbContextType.Should().Be<UserContext>();
         }
     }
 }

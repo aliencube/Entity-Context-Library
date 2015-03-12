@@ -42,8 +42,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFrameworkTesting.1.1.2\lib\net45\EntityFramework.Testing.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.Testing.NSubstitute, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.Testing.NSubstitute">
       <HintPath>..\..\packages\EntityFrameworkTesting.NSubstitute.1.1.2\lib\net45\EntityFramework.Testing.NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">

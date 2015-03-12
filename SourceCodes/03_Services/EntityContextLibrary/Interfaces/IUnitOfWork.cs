@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary.Interfaces
 {
     /// <summary>
     /// This provides interfaces to the <c>UnitOfWork</c> class.
     /// </summary>
-    /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
-    public interface IUnitOfWork<TContext> : IDisposable
-        where TContext : DbContext
+    public interface IUnitOfWork : IDisposable
     {
+        /// <summary>
+        /// Gets the type of the <c>DbContext</c> instance.
+        /// </summary>
+        Type DbContextType { get; }
+
         /// <summary>
         /// Begins database transactions.
         /// </summary>
