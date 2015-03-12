@@ -11,8 +11,7 @@ namespace Aliencube.EntityContextLibrary
     /// This represents the entity for unit of work.
     /// </summary>
     /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
-    public class UnitOfWork<TContext> : IUnitOfWork
-        where TContext : DbContext
+    public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {
         private readonly IDbContextFactory _contextFactory;
 
@@ -219,7 +218,8 @@ namespace Aliencube.EntityContextLibrary
                 return;
             }
 
-            if (this.GetConnectionState(this._objectContext) == ConnectionState.Open)
+            var connectionState = this.GetConnectionState(this._objectContext);
+            if (connectionState == ConnectionState.Open)
             {
                 this._objectContext.Connection.Close();
             }
