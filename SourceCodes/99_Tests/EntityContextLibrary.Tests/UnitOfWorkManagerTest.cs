@@ -61,8 +61,8 @@ namespace Aliencube.EntityContextLibrary.Tests
         [Test]
         public void GetContext_GivenDetails_ReturnContext()
         {
-            this._productContextFactory.CreateContext().Returns(this._productContext);
-            this._userContextFactory.CreateContext().Returns(this._userContext);
+            this._productContextFactory.Context.Returns(this._productContext);
+            this._userContextFactory.Context.Returns(this._userContext);
 
             var puow = this._uowm.CreateInstance<ProductContext>();
             puow.DbContextType.Should().Be<ProductContext>();

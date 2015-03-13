@@ -1,9 +1,6 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System;
 using Aliencube.EntityContextLibrary.Interfaces;
 using FluentAssertions;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
@@ -11,14 +8,12 @@ namespace Aliencube.EntityContextLibrary.Tests
     [TestFixture]
     public class DbContextFactoryTest
     {
-        private ProductContext _context;
         private IDbContextFactory _factory;
 
         [SetUp]
         public void Init()
         {
-            this._context = Substitute.For<ProductContext>();
-            this._factory = Substitute.For<IDbContextFactory>();
+            this._factory = new DbContextFactory<ProductContext>();
         }
 
         [TearDown]
@@ -28,25 +23,15 @@ namespace Aliencube.EntityContextLibrary.Tests
             {
                 this._factory.Dispose();
             }
-
-            if (this._context != null)
-            {
-                this._context.Dispose();
-            }
         }
 
         [Test]
-        [TestCase(3)]
-        public void GetContext_GivenDetails_ReturnContext(int count)
+        [TestCase(typeof(ProductContext))]
+        public void GetContext_GivenDetails_ReturnContext(Type expectedType)
         {
-            var products = ProductHelper.CreateProducts(count);
-            var dbSet = Substitute.For<DbSet<Product>, IQueryable<Product>, IDbAsyncEnumerable<Product>>().SetupData(products);
-
-            this._context.Products.Returns(dbSet);
-            this._factory.CreateContext().Returns(this._context);
-
-            var context = this._factory.CreateContext();
+            var context = this._factory.Context;
             context.Should().NotBeNull();
+            context.Should().BeOfType(expectedType);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Aliencube.EntityContextLibrary
                 throw new ArgumentNullException("contextFactory");
             }
 
-            var dbContext = contextFactory.CreateContext();
+            var dbContext = contextFactory.Context;
             var context = (TContext)Convert.ChangeType(dbContext, typeof(TContext));
             return context;
         }
