@@ -14,22 +14,42 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
-        /// Initialises a new instance of the <c>DbContextFactory</c> class.
+        /// Gets the <c>DbContext</c> instance.
         /// </summary>
-        private void Initialise()
+        public virtual DbContext Context
         {
-            this._dbContext = Activator.CreateInstance<TContext>();
+            get
+            {
+                if (this._dbContext == null)
+                {
+                    this._dbContext = Activator.CreateInstance<TContext>();
+                }
+
+                return this._dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Gets the type of the <c>DbContext</c> instance.
+        /// </summary>
+        public Type DbContextType
+        {
+            get
+            {
+                return typeof(TContext);
+            }
         }
 
         /// <summary>
         /// Creates the <c>DbContext</c> instance.
         /// </summary>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>
+        [Obsolete("Use this.Context property instead.")]
         public virtual DbContext CreateContext()
         {
             if (this._dbContext == null)
             {
-                this.Initialise();
+                this._dbContext = Activator.CreateInstance<TContext>();
             }
 
             return this._dbContext;

@@ -23,17 +23,22 @@ using Autofac;
 
 public static class Program
 {
-  private const string SERVICE_NAME = "MyService";
+  private const string MY_DB_CONTEXT = "MyDbContextName";
+  private const string ANOTHER_DB_CONTEXT = "AnotherDbContextName";
 
   public static void Main(string[] args)
   {
     var builder = new ContainerBuilder();
 
-    // Register ApplicationDbContext with DbContextFactory.
-    builder.RegisterType<DbContextFactory<ApplicationDbContext>>()
+    // Register MyDbContext with DbContextFactory.
+    builder.RegisterType<DbContextFactory<MyDbContext>>()
            .Named<IDbContextFactory>(SERVICE_NAME)
            .As<IDbContextFactory>();
 
+    // Register AnotherDbContext with DbContextFactory.
+    builder.RegisterType<DbContextFactory<AnotherDbContext>>()
+           .Named<IDbContextFactory>(SERVICE_NAME)
+           .As<IDbContextFactory>();
     ...
 
     _container = builder.Build();
@@ -100,7 +105,16 @@ builder.Register(p => new ProductRepository(p.ResolveNamed<IDbContextFactory>(SE
 
 ```csharp
 // Register UnitOfWorkManager.
-builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(SERVICE_NAME)))
+builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(MY_DB_CONTEXT)))
+       .As<IUnitOfWorkManager>();
+```
+
+If you want to handle multiple `DbContext` instances, you can add as many `DbContext` instances as you want.
+
+```csharp
+// Register UnitOfWorkManager.
+builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(MY_DB_CONTEXT),
+                                            p.ResolveNamed<IDbContextFactory>(ANOTHER_DB_CONTEXT)))
        .As<IUnitOfWorkManager>();
 ```
 
@@ -133,7 +147,7 @@ public class ProductQueryManager
   // Adds a product into the table.
   public bool Add(Product product)
   {
-    using (var uow = this._uowm.CreateInstance<ApplicationDbContext>())
+    using (var uow = this._uowm.CreateInstance<MyDbContext>())
     {
       uow.BeginTransaction();
 
@@ -159,7 +173,7 @@ public class ProductQueryManager
   // Updates a product on the table.
   public bool Update(Product product)
   {
-    using (var uow = this._uowm.CreateInstance<ApplicationDbContext>())
+    using (var uow = this._uowm.CreateInstance<MyDbContext>())
     {
       uow.BeginTransaction();
 
@@ -185,7 +199,7 @@ public class ProductQueryManager
   // Deletes a product from the table.
   public bool Delete(Product product)
   {
-    using (var uow = this._uowm.CreateInstance<ApplicationDbContext>())
+    using (var uow = this._uowm.CreateInstance<MyDbContext>())
     {
       uow.BeginTransaction();
 

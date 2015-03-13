@@ -10,4 +10,13 @@ namespace Aliencube.EntityContextLibrary.Tests
 
         public decimal Price { get; set; }
     }
+
+    public class User
+    {
+        public int UserId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+    }
 }

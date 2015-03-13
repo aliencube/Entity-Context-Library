@@ -11,15 +11,16 @@ namespace Aliencube.EntityContextLibrary.Tests
     [TestFixture]
     public class RepositoryTest
     {
-        private TestContext _context;
+        private ProductContext _context;
         private IDbContextFactory _factory;
         private IBaseRepository<Product> _repository;
 
         [SetUp]
         public void Init()
         {
-            this._context = Substitute.For<TestContext>();
+            this._context = Substitute.For<ProductContext>();
             this._factory = Substitute.For<IDbContextFactory>();
+            this._factory.DbContextType.Returns(typeof(ProductContext));
         }
 
         [TearDown]
@@ -50,7 +51,7 @@ namespace Aliencube.EntityContextLibrary.Tests
 
             this._context.Products.Returns(dbSet);
             this._context.Set<Product>().Returns(dbSet);
-            this._factory.CreateContext().Returns(this._context);
+            this._factory.Context.Returns(this._context);
 
             this._repository = new BaseRepository<Product>(this._factory);
             this._repository.Context.Should().BeSameAs(this._context);
@@ -73,7 +74,7 @@ namespace Aliencube.EntityContextLibrary.Tests
 
             this._context.Products.Returns(dbSet);
             this._context.Set<Product>().Returns(dbSet);
-            this._factory.CreateContext().Returns(this._context);
+            this._factory.Context.Returns(this._context);
 
             this._repository = new BaseRepository<Product>(this._factory);
             this._repository.Context.Should().BeSameAs(this._context);
@@ -98,7 +99,7 @@ namespace Aliencube.EntityContextLibrary.Tests
 
             this._context.Products.Returns(dbSet);
             this._context.Set<Product>().Returns(dbSet);
-            this._factory.CreateContext().Returns(this._context);
+            this._factory.Context.Returns(this._context);
 
             this._repository = new BaseRepository<Product>(this._factory);
             this._repository.Context.Should().BeSameAs(this._context);

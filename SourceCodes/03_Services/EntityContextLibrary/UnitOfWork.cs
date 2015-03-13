@@ -11,8 +11,7 @@ namespace Aliencube.EntityContextLibrary
     /// This represents the entity for unit of work.
     /// </summary>
     /// <typeparam name="TContext"><c>DbContext</c> type instance.</typeparam>
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext>
-        where TContext : DbContext
+    public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
     {
         private readonly IDbContextFactory _contextFactory;
 
@@ -33,19 +32,43 @@ namespace Aliencube.EntityContextLibrary
             }
 
             this._contextFactory = contextFactory;
-            this._dbContext = this.GetDbContext();
-            this._objectContext = ((IObjectContextAdapter)this._dbContext).ObjectContext;
+            this._dbContext = this.GetDbContext(this._contextFactory);
+            this._objectContext = this.GetObjectContext(this._dbContext);
             this.OpenDbConnection();
         }
 
         /// <summary>
         /// Gets the <c>DbContext</c> from the <c>DbContextFactory</c> instance.
         /// </summary>
+        /// <param name="contextFactory"><c>DbContextFactory</c> instance.</param>
         /// <returns>Returns the <c>DbContext</c> instance.</returns>
-        private TContext GetDbContext()
+        private TContext GetDbContext(IDbContextFactory contextFactory)
         {
-            var dbContext = (TContext)Convert.ChangeType(this._contextFactory.CreateContext(), typeof(TContext));
-            return dbContext;
+            if (contextFactory == null)
+            {
+                throw new ArgumentNullException("contextFactory");
+            }
+
+            var dbContext = contextFactory.Context;
+            var context = (TContext)Convert.ChangeType(dbContext, typeof(TContext));
+            return context;
+        }
+
+        /// <summary>
+        /// Gets the <c>ObjectContext</c> instance from <c>DbContext</c>.
+        /// </summary>
+        /// <param name="dbContext"><c>DbContext</c> instance.</param>
+        /// <returns>Returns the <c>ObjectContext</c> instance.</returns>
+        private ObjectContext GetObjectContext(TContext dbContext)
+        {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException("dbContext");
+            }
+
+            var contextAdapter = (IObjectContextAdapter)dbContext;
+            var objectContext = contextAdapter.ObjectContext;
+            return objectContext;
         }
 
         /// <summary>
@@ -53,10 +76,12 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         private void OpenDbConnection()
         {
-            if (this._objectContext.Connection.State != ConnectionState.Open)
+            if (this._objectContext.Connection.State == ConnectionState.Open)
             {
-                this._objectContext.Connection.Open();
+                return;
             }
+
+            this._objectContext.Connection.Open();
         }
 
         /// <summary>
@@ -71,11 +96,22 @@ namespace Aliencube.EntityContextLibrary
                     return this._dbContext;
                 }
 
-                this._dbContext = this.GetDbContext();
-                this._objectContext = ((IObjectContextAdapter)this._dbContext).ObjectContext;
+                this._dbContext = this.GetDbContext(this._contextFactory);
+                this._objectContext = this.GetObjectContext(this._dbContext);
                 this.OpenDbConnection();
 
                 return this._dbContext;
+            }
+        }
+
+        /// <summary>
+        /// Gets the type of the <c>DbContext</c> instance.
+        /// </summary>
+        public Type DbContextType
+        {
+            get
+            {
+                return typeof(TContext);
             }
         }
 
@@ -182,7 +218,8 @@ namespace Aliencube.EntityContextLibrary
                 return;
             }
 
-            if (this.GetConnectionState(this._objectContext) == ConnectionState.Open)
+            var connectionState = this.GetConnectionState(this._objectContext);
+            if (connectionState == ConnectionState.Open)
             {
                 this._objectContext.Connection.Close();
             }
