@@ -41,48 +41,140 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// Adds the new entity.
         /// </summary>
         /// <param name="entity">Entity instance to add.</param>
-        void Add(TEntity entity);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void Add(TEntity entity, bool save = true);
+
+        /// <summary>
+        /// Adds the new entity asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity instance to add.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Adds the new list of entities.
         /// </summary>
         /// <param name="entities">List of entity instances to add.</param>
-        void AddRange(IEnumerable<TEntity> entities);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddRange(IEnumerable<TEntity> entities, bool save = true);
+
+        /// <summary>
+        /// Adds the new list of entities asynchronously.
+        /// </summary>
+        /// <param name="entities">List of entity instances to add.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
         /// Updates the existing entity.
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
-        void Update(TEntity entity);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void Update(TEntity entity, bool save = true);
+
+        /// <summary>
+        /// Updates the existing entity asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void UpdateAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Updates the existing list of entities.
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
-        void UpdateRange(IEnumerable<TEntity> entities);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void UpdateRange(IEnumerable<TEntity> entities, bool save = true);
+
+        /// <summary>
+        /// Updates the existing list of entities asynchronously.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
+
+        /// <summary>
+        /// Adds or updates entity.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddOrUpdate(TEntity entity, bool save = true);
+
+        /// <summary>
+        /// Adds or updates entity asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddOrUpdateAsync(TEntity entity, bool save = true);
+
+        /// <summary>
+        /// Adds or updates the existing list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddOrUpdateRange(IEnumerable<TEntity> entities, bool save = true);
+
+        /// <summary>
+        /// Adds or updates the existing list of entities asynchronously.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
         /// Deletes the entity corresponding to the entityId fro the DB set.
         /// </summary>
         /// <param name="entityId">EntityId as a primary key.</param>
-        void Delete(object entityId);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void Delete(object entityId, bool save = true);
+
+        /// <summary>
+        /// Deletes the entity corresponding to the entityId fro the DB set asynchronously.
+        /// </summary>
+        /// <param name="entityId">EntityId as a primary key.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteAsync(object entityId, bool save = true);
 
         /// <summary>
         /// Deletes the list of entities corresponding to the entityIds fro the DB set.
         /// </summary>
         /// <param name="entityIds">List of entityIds as primary keys.</param>
-        void DeleteRange(IEnumerable<object> entityIds);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteRange(IEnumerable<object> entityIds, bool save = true);
+
+        /// <summary>
+        /// Deletes the list of entities corresponding to the entityIds fro the DB set asynchronously.
+        /// </summary>
+        /// <param name="entityIds">List of entityIds as primary keys.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true);
 
         /// <summary>
         /// Deletes the entity from the DB set.
         /// </summary>
         /// <param name="entity">Entity instance to delete.</param>
-        void Delete(TEntity entity);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void Delete(TEntity entity, bool save = true);
+
+        /// <summary>
+        /// Deletes the entity from the DB set asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity instance to delete.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Deletes the list of entities from the DB set.
         /// </summary>
         /// <param name="entities">List of entity instances to delete.</param>
-        void DeleteRange(IEnumerable<TEntity> entities);
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteRange(IEnumerable<TEntity> entities, bool save = true);
+
+        /// <summary>
+        /// Deletes the list of entities from the DB set asynchronously.
+        /// </summary>
+        /// <param name="entities">List of entity instances to delete.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        void DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true);
     }
 }

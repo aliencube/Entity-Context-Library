@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using Aliencube.EntityContextLibrary.Interfaces;
@@ -89,7 +90,8 @@ namespace Aliencube.EntityContextLibrary
         /// Adds the new entity.
         /// </summary>
         /// <param name="entity">Entity instance to add.</param>
-        public virtual void Add(TEntity entity)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void Add(TEntity entity, bool save = true)
         {
             if (entity.Equals(default(TEntity)))
             {
@@ -97,13 +99,34 @@ namespace Aliencube.EntityContextLibrary
             }
 
             this._dbSet.Add(entity);
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Adds the new entity.
+        /// </summary>
+        /// <param name="entity">Entity instance to add.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void AddAsync(TEntity entity, bool save = true)
+        {
+            this.Add(entity, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
         }
 
         /// <summary>
         /// Adds the new list of entities.
         /// </summary>
         /// <param name="entities">List of entity instances to add.</param>
-        public virtual void AddRange(IEnumerable<TEntity> entities)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void AddRange(IEnumerable<TEntity> entities, bool save = true)
         {
             if (entities == null)
             {
@@ -112,7 +135,27 @@ namespace Aliencube.EntityContextLibrary
 
             foreach (var entity in entities)
             {
-                this.Add(entity);
+                this.Add(entity, false);
+            }
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Adds the new list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to add.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void AddRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        {
+            this.AddRange(entities, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
             }
         }
 
@@ -120,7 +163,8 @@ namespace Aliencube.EntityContextLibrary
         /// Updates the existing entity.
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
-        public virtual void Update(TEntity entity)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void Update(TEntity entity, bool save = true)
         {
             if (entity.Equals(default(TEntity)))
             {
@@ -129,13 +173,34 @@ namespace Aliencube.EntityContextLibrary
 
             this._dbSet.Attach(entity);
             this.Context.Entry(entity).State = EntityState.Modified;
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Updates the existing entity.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void UpdateAsync(TEntity entity, bool save = true)
+        {
+            this.Update(entity, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
         }
 
         /// <summary>
         /// Updates the existing list of entities.
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
-        public virtual void UpdateRange(IEnumerable<TEntity> entities)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void UpdateRange(IEnumerable<TEntity> entities, bool save = true)
         {
             if (entities == null)
             {
@@ -144,7 +209,100 @@ namespace Aliencube.EntityContextLibrary
 
             foreach (var entity in entities)
             {
-                this.Update(entity);
+                this.Update(entity, false);
+            }
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Updates the existing list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        {
+            this.UpdateRange(entities, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates entity.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void AddOrUpdate(TEntity entity, bool save = true)
+        {
+            if (entity.Equals(default(TEntity)))
+            {
+                throw new ArgumentNullException("entity");
+            }
+
+            this._dbSet.AddOrUpdate(entity);
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates entity asynchronously.
+        /// </summary>
+        /// <param name="entity">Entity instance to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void AddOrUpdateAsync(TEntity entity, bool save = true)
+        {
+            this.AddOrUpdate(entity, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates the existing list of entities.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void AddOrUpdateRange(IEnumerable<TEntity> entities, bool save = true)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+
+            foreach (var entity in entities)
+            {
+                this.AddOrUpdate(entity, false);
+            }
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates the existing list of entities asynchronously.
+        /// </summary>
+        /// <param name="entities">List of entity instances to update.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        {
+            this.AddOrUpdateRange(entities, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
             }
         }
 
@@ -152,22 +310,44 @@ namespace Aliencube.EntityContextLibrary
         /// Deletes the entity corresponding to the entityId fro the DB set.
         /// </summary>
         /// <param name="entityId">EntityId as a primary key.</param>
-        public virtual void Delete(object entityId)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void Delete(object entityId, bool save = true)
         {
             if (entityId == null || (int)entityId < 0)
             {
                 throw new ArgumentOutOfRangeException("entityId");
             }
 
-            var entity = this._dbSet.Find(entityId);
-            this.Delete(entity);
+            var entity = this.Get(entityId);
+            this.Delete(entity, false);
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the entity corresponding to the entityId fro the DB set.
+        /// </summary>
+        /// <param name="entityId">EntityId as a primary key.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void DeleteAsync(object entityId, bool save = true)
+        {
+            this.Delete(entityId, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
         }
 
         /// <summary>
         /// Deletes the list of entities corresponding to the entityIds fro the DB set.
         /// </summary>
         /// <param name="entityIds">List of entityIds as primary keys.</param>
-        public virtual void DeleteRange(IEnumerable<object> entityIds)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void DeleteRange(IEnumerable<object> entityIds, bool save = true)
         {
             if (entityIds == null)
             {
@@ -176,7 +356,27 @@ namespace Aliencube.EntityContextLibrary
 
             foreach (var entityId in entityIds)
             {
-                this.Delete(entityId);
+                this.Delete(entityId, false);
+            }
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the list of entities corresponding to the entityIds fro the DB set.
+        /// </summary>
+        /// <param name="entityIds">List of entityIds as primary keys.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true)
+        {
+            this.DeleteRange(entityIds, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
             }
         }
 
@@ -184,7 +384,8 @@ namespace Aliencube.EntityContextLibrary
         /// Deletes the entity from the DB set.
         /// </summary>
         /// <param name="entity">Entity instance to delete.</param>
-        public virtual void Delete(TEntity entity)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void Delete(TEntity entity, bool save = true)
         {
             if (entity.Equals(default(TEntity)))
             {
@@ -197,13 +398,34 @@ namespace Aliencube.EntityContextLibrary
             }
 
             this._dbSet.Remove(entity);
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the entity from the DB set.
+        /// </summary>
+        /// <param name="entity">Entity instance to delete.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void DeleteAsync(TEntity entity, bool save = true)
+        {
+            this.Delete(entity, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
+            }
         }
 
         /// <summary>
         /// Deletes the list of entities from the DB set.
         /// </summary>
         /// <param name="entities">List of entity instances to delete.</param>
-        public virtual void DeleteRange(IEnumerable<TEntity> entities)
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual void DeleteRange(IEnumerable<TEntity> entities, bool save = true)
         {
             if (entities == null)
             {
@@ -212,7 +434,27 @@ namespace Aliencube.EntityContextLibrary
 
             foreach (var entity in entities)
             {
-                this.Delete(entity);
+                this.Delete(entity, false);
+            }
+
+            if (save)
+            {
+                this.Context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the list of entities from the DB set.
+        /// </summary>
+        /// <param name="entities">List of entity instances to delete.</param>
+        /// <param name="save">Value that specifies whether to save entity or not.</param>
+        public virtual async void DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        {
+            this.DeleteRange(entities, false);
+
+            if (save)
+            {
+                await this.Context.SaveChangesAsync();
             }
         }
 
