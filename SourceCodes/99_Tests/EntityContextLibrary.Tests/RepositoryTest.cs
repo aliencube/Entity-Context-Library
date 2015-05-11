@@ -88,6 +88,17 @@ namespace Aliencube.EntityContextLibrary.Tests
             var result = this._repository.Get().SingleOrDefault(p => p.ProductId == productId);
             result.Should().NotBeNull();
             result.Price.Should().Be(productId);
+
+            this._context = new ProductContext();
+            this._factory = new DbContextFactory<ProductContext>();
+            this._repository = new BaseRepository<Product>(this._factory);
+
+            var productBeforeCount = this._repository.Get().Count();
+            product = new Product() { Name = "TEST Product", Description = "TEST Description", Price = 100.00M };
+            this._repository.Add(product);
+
+            var productAfterCount = this._repository.Get().Count();
+            productAfterCount.Should().Be(productBeforeCount + 1);
         }
 
         [Test]

@@ -5,6 +5,8 @@ using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
+    using System;
+
     [TestFixture]
     public class UnitOfWorkManagerTest
     {
@@ -17,6 +19,8 @@ namespace Aliencube.EntityContextLibrary.Tests
         [SetUp]
         public void Init()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+
             this._productContext = new ProductContext();
             this._userContext = new UserContext();
 

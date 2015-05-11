@@ -88,6 +88,11 @@
     <Compile Include="..\..\..\Documents\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Migrations\201505110052173_InitialCreate.cs" />
+    <Compile Include="Migrations\201505110052173_InitialCreate.Designer.cs">
+      <DependentUpon>201505110052173_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="TestContextHelper.cs" />
     <Compile Include="RepositoryTest.cs" />
@@ -105,6 +110,11 @@
       <Project>{f8af8ebe-773e-4943-a46c-c888503eb7bf}</Project>
       <Name>EntityContextLibrary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505110052173_InitialCreate.resx">
+      <DependentUpon>201505110052173_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
