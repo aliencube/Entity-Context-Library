@@ -13,6 +13,8 @@ namespace Aliencube.EntityContextLibrary.Tests
         [SetUp]
         public void Init()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+
             this._factory = new DbContextFactory<ProductContext>();
         }
 

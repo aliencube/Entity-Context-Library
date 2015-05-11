@@ -1,3 +1,4 @@
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Aliencube.EntityContextLibrary.Tests
         [SetUp]
         public void Init()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
+
             this._context = Substitute.For<ProductContext>();
             this._factory = Substitute.For<IDbContextFactory>();
             this._factory.DbContextType.Returns(typeof(ProductContext));
