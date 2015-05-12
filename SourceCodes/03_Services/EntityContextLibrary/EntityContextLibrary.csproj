@@ -52,6 +52,11 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DbContextFactory.cs" />
+    <Compile Include="Extensions\ConvertHelper.cs" />
+    <Compile Include="Extensions\DbContextCommandExtensions.cs" />
+    <Compile Include="Extensions\DbContextCommandExtensionsDictionary.cs" />
+    <Compile Include="Extensions\DbContextQueryExtensionsDictionary.cs" />
+    <Compile Include="Extensions\DbContextQueryExtensions.cs" />
     <Compile Include="Interfaces\IDbContextFactory.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
