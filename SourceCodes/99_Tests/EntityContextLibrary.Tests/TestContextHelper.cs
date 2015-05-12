@@ -10,11 +10,12 @@ namespace Aliencube.EntityContextLibrary.Tests
             var products = new List<Product>();
             for (var i = index; i < count + index; i++)
             {
-                var product = CreateProduct(i + 1); 
+                var product = CreateProduct(i + 1);
                 products.Add(product);
             }
             return products;
         }
+
         public static IList<Product> CreateProducts(IEnumerable<int> productIds)
         {
             var products = new List<Product>();
@@ -25,7 +26,6 @@ namespace Aliencube.EntityContextLibrary.Tests
             }
             return products;
         }
-
 
         public static Product CreateProduct(int productId)
         {
@@ -52,6 +52,7 @@ namespace Aliencube.EntityContextLibrary.Tests
             }
             return users;
         }
+
         public static IList<User> CreateUsers(IEnumerable<int> userIds)
         {
             var users = new List<User>();
@@ -62,7 +63,6 @@ namespace Aliencube.EntityContextLibrary.Tests
             }
             return users;
         }
-
 
         public static User CreateUser(int userId)
         {

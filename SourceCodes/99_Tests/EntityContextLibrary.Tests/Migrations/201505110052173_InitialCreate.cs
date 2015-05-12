@@ -1,10 +1,9 @@
 using System.Data.Entity.Migrations;
+using System.IO;
+using System.Reflection;
 
 namespace Aliencube.EntityContextLibrary.Tests.Migrations
 {
-    using System.IO;
-    using System.Reflection;
-
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
@@ -28,6 +27,7 @@ namespace Aliencube.EntityContextLibrary.Tests.Migrations
         {
             DropTable("dbo.Products");
         }
+
         private void SqlFromFile(string sqlFileName)
         {
             var assembly = Assembly.GetExecutingAssembly();

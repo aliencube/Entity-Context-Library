@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using Aliencube.EntityContextLibrary.Interfaces;
 using FluentAssertions;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests

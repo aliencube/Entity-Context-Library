@@ -1,12 +1,11 @@
-﻿using Aliencube.EntityContextLibrary.Interfaces;
+﻿using System;
+using Aliencube.EntityContextLibrary.Interfaces;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
-    using System;
-
     [TestFixture]
     public class UnitOfWorkManagerTest
     {
