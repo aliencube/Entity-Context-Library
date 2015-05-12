@@ -181,41 +181,37 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// <summary>
         /// Execute stored precedure or direct SQL. This is mainly for the SELECT statements.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(string commandText, TInput input);
+        IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(string commandText, object input);
 
         /// <summary>
         /// Execute stored precedure or direct SQL asynchronously. This is mainly for the SELECT statements.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(string commandText, TInput input);
+        Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(string commandText, object input);
 
         /// <summary>
         /// Execute stored precedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the number of rows affected.</returns>
         /// <remarks>Make sure that this might return -1, if the stored procedure contains the <c>SET NOCOUNT ON</c> statement.</remarks>
-        int ExecuteStoreCommand<TInput>(string commandText, TInput input);
+        int ExecuteStoreCommand(string commandText, object input);
 
         /// <summary>
         /// Execute stored precedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the number of rows affected.</returns>
         /// <remarks>Make sure that this might return -1, if the stored procedure contains the <c>SET NOCOUNT ON</c> statement.</remarks>
-        Task<int> ExecuteStoreCommandAsync<TInput>(string commandText, TInput input);
+        Task<int> ExecuteStoreCommandAsync(string commandText, object input);
     }
 }
