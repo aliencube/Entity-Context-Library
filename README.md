@@ -116,7 +116,7 @@ await productRepository.AddAsync(product);
 var results = productRepository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = 1 });
 ```
 
-* `ExecuteStoreCommand` is used mainly for `SELECT`, `UPDATE` and `DELETE` statements.
+* `ExecuteStoreCommand` is used mainly for `INSERT`, `UPDATE` and `DELETE` statements.
 
 ```csharp
 var result = productRepository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = "My Product", Description = "This is awesome", Price = 10.00M });
