@@ -95,10 +95,32 @@ var product = new Product() { ProductId = 1 };
 productRepository.Add(product);
 ```
 
+
+#### Async Methods ####
+
+`Add`, `AddRange`, `Update`, `UpdateRange`, `Delete` and `DeleteRange` have their corresponding async methods like `AddAsync`, `AddRangeAsync`, `UpdateAsync`, `UpdateRangeAsync`, `DeleteAsync` and `DeleteRangeAsync` in `IBaseRepository`. Therefore, you can get benefits from async programming.
+
+```csharp
+var product = new Product() { ProductId = 1 };
+await productRepository.AddAsync(product);
+```
+
+
+#### Stored Procedures ####
+
 `IBaseRepository` also provides methods to run stored procedures:
 
 * `ExecuteStoreQuery` is used mainly for `SELECT` statement.
+
+```csharp
+var results = productRepository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = 1 });
+```
+
 * `ExecuteStoreCommand` is used mainly for `SELECT`, `UPDATE` and `DELETE` statements.
+
+```csharp
+var result = productRepository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = "My Product", Description = "This is awesome", Price = 10.00M });
+```
 
 With `Autofac`, you can put a line of code into the IoC container:
 
