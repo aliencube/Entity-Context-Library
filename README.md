@@ -5,7 +5,16 @@
 
 ## Package Status ##
 
-* **Entity Context Library** [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) [![](https://img.shields.io/nuget/dt/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/)
+| **Entity Context Library** |
+|:--------------------------:|
+| [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) [![](https://img.shields.io/nuget/dt/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) |
+
+
+## Build Status ##
+
+| `master` | `dev` | `release` |
+|:--------:|:-----:|:---------:|
+| [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/master?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/release?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/release) |
 
 
 ## Getting Started ##
@@ -85,6 +94,11 @@ IProductRepository productRepository = new ProductRepository(contextFactory);
 var product = new Product() { ProductId = 1 };
 productRepository.Add(product);
 ```
+
+`IBaseRepository` also provides methods to run stored procedures:
+
+* `ExecuteStoreQuery` is used mainly for `SELECT` statement.
+* `ExecuteStoreCommand` is used mainly for `SELECT`, `UPDATE` and `DELETE` statements.
 
 With `Autofac`, you can put a line of code into the IoC container:
 
