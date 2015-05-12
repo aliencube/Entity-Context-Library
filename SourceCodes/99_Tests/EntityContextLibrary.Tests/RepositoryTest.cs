@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace Aliencube.EntityContextLibrary.Tests
         {
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
 
-            this._context = Substitute.For<ProductContext>();
-            this._factory = Substitute.For<IDbContextFactory>();
-            this._factory.DbContextType.Returns(typeof(ProductContext));
+            this._context = new ProductContext();
+            this._factory = new DbContextFactory<ProductContext>();
+            this._repository = new BaseRepository<Product>(this._factory);
         }
 
         [TearDown]
@@ -46,58 +47,22 @@ namespace Aliencube.EntityContextLibrary.Tests
         }
 
         [Test]
-        [TestCase(3, 1, "Product 1")]
-        public void GetProduct_GivenContext_ReturnProduct(int count, int productId, string name)
+        [TestCase(1)]
+        public void GetProduct_GivenContext_ReturnProduct(int productId)
         {
-            var products = ProductHelper.CreateProducts(count);
-            var dbSet = Substitute.For<DbSet<Product>, IQueryable<Product>, IDbAsyncEnumerable<Product>>().SetupData(products);
-
-            this._context.Products.Returns(dbSet);
-            this._context.Set<Product>().Returns(dbSet);
-            this._factory.Context.Returns(this._context);
-
-            this._repository = new BaseRepository<Product>(this._factory);
-            this._repository.Context.Should().BeSameAs(this._context);
-
             var product = this._repository.Get(p => p.ProductId == productId).SingleOrDefault();
             product.Should().NotBeNull();
-            product.Name.ToLower().Should().Be(name.ToLower());
 
             product = this._repository.Get().SingleOrDefault(p => p.ProductId == productId);
             product.Should().NotBeNull();
-            product.Name.ToLower().Should().Be(name.ToLower());
         }
 
         [Test]
-        [TestCase(3, 4)]
-        public void AddProduct_GivenContext_ProductAdded(int count, int productId)
+        public void AddProduct_GivenContext_ProductAdded()
         {
-            var products = ProductHelper.CreateProducts(count);
-            var dbSet = Substitute.For<DbSet<Product>, IQueryable<Product>, IDbAsyncEnumerable<Product>>().SetupData(products);
-
-            this._context.Products.Returns(dbSet);
-            this._context.Set<Product>().Returns(dbSet);
-            this._factory.Context.Returns(this._context);
-
-            this._repository = new BaseRepository<Product>(this._factory);
-            this._repository.Context.Should().BeSameAs(this._context);
-
-            var product = ProductHelper.CreateProduct(productId);
-            this._repository.Add(product);
-
-            var results = this._repository.Get();
-            results.Should().HaveCount(count + 1);
-
-            var result = this._repository.Get().SingleOrDefault(p => p.ProductId == productId);
-            result.Should().NotBeNull();
-            result.Price.Should().Be(productId);
-
-            this._context = new ProductContext();
-            this._factory = new DbContextFactory<ProductContext>();
-            this._repository = new BaseRepository<Product>(this._factory);
-
             var productBeforeCount = this._repository.Get().Count();
-            product = new Product() { Name = "TEST Product", Description = "TEST Description", Price = 100.00M };
+
+            var product = new Product() { Name = "TEST Product", Description = "TEST Description", Price = 100.00M };
             this._repository.Add(product);
 
             var productAfterCount = this._repository.Get().Count();
@@ -105,29 +70,39 @@ namespace Aliencube.EntityContextLibrary.Tests
         }
 
         [Test]
-        [TestCase(3, 4, 5)]
-        public void AddProducts_GivenContext_ProductsAdded(int count, params int[] productIds)
+        public void AddProducts_GivenContext_ProductsAdded()
         {
-            var products = ProductHelper.CreateProducts(count);
-            var dbSet = Substitute.For<DbSet<Product>, IQueryable<Product>, IDbAsyncEnumerable<Product>>().SetupData(products);
+            var productBeforeCount = this._repository.Get().Count();
 
-            this._context.Products.Returns(dbSet);
-            this._context.Set<Product>().Returns(dbSet);
-            this._factory.Context.Returns(this._context);
+            var products = new List<Product>()
+                           {
+                               new Product() { Name = "Name 11", Description = "Description 11", Price = 100.00M },
+                               new Product() { Name = "Name 12", Description = "Description 12", Price = 200.00M },
+                           };
+            this._repository.AddRange(products);
 
-            this._repository = new BaseRepository<Product>(this._factory);
-            this._repository.Context.Should().BeSameAs(this._context);
+            var productAfterCount = this._repository.Get().Count();
 
-            var newProducts = ProductHelper.CreateProducts(productIds);
-            this._repository.AddRange(newProducts);
+            productAfterCount.Should().Be(productBeforeCount + products.Count);
+        }
 
-            var results = this._repository.Get();
-            results.Should().NotBeNull();
-            results.Should().HaveCount(count + productIds.Length);
+        [Test]
+        public void RunStoredQuery_GivenContext_ProductSelected()
+        {
+            var results = this._repository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = 1 });
+            results.Should().HaveCount(1);
+        }
 
-            results = this._repository.Get(p => productIds.Contains(p.ProductId));
-            results.Should().NotBeNull();
-            results.Should().HaveCount(productIds.Length);
+        [Test]
+        public void RunStoredCommand_GivenContext_ProductAdded()
+        {
+            var productBeforeCount = this._repository.Get().Count();
+
+            var result = this._repository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = "Test Product", Description = "Test Description", Price = 50.00M });
+
+            var productAfterCount = this._repository.Get().Count();
+
+            productAfterCount.Should().Be(productBeforeCount + 1);
         }
     }
 }

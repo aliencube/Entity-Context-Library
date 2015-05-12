@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 
 namespace Aliencube.EntityContextLibrary.Tests.Migrations
@@ -12,18 +13,13 @@ namespace Aliencube.EntityContextLibrary.Tests.Migrations
 
         protected override void Seed(Aliencube.EntityContextLibrary.Tests.ProductContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var products = new List<Product>()
+                           {
+                               new Product() { Name = "Name 1", Description = "Description 1", Price = 100.00M },
+                               new Product() { Name = "Name 2", Description = "Description 2", Price = 200.00M },
+                           };
+            products.ForEach(p => context.Products.AddOrUpdate(q => q.ProductId, p));
+            context.SaveChanges();
         }
     }
 }
