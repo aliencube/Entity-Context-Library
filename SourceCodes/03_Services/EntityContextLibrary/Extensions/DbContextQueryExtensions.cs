@@ -15,13 +15,12 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(this DbContext context, string commandText, TInput input)
+        public static IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(this DbContext context, string commandText, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -32,14 +31,13 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="executionOptions"><c>ExecutionOptions</c> object.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, TInput input)
+        public static IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -50,7 +48,6 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -58,7 +55,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="executionOptions"><c>ExecutionOptions</c> object.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, TInput input)
+        public static IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -69,7 +66,6 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -77,7 +73,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="mergeOption">The <c>MergeOption</c> to use when executing the query.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(this DbContext context, string commandText, string entitySetName, MergeOption mergeOption, TInput input)
+        public static IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(this DbContext context, string commandText, string entitySetName, MergeOption mergeOption, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -88,13 +84,12 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -105,14 +100,13 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="executionOptions"><c>ExecutionOptions</c> object.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -123,14 +117,13 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="cancellationToken">A <c>CancellationToken</c> to observe while waiting for the task to complete.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, CancellationToken cancellationToken, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, CancellationToken cancellationToken, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -141,7 +134,6 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -149,7 +141,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="cancellationToken">A <c>CancellationToken</c> to observe while waiting for the task to complete.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, CancellationToken cancellationToken, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, ExecutionOptions executionOptions, CancellationToken cancellationToken, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -160,7 +152,6 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -168,7 +159,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="executionOptions"><c>ExecutionOptions</c> object.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
@@ -179,7 +170,6 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <summary>
         /// Executes a query directly against the data source and returns a sequence of typed results asynchronously.
         /// </summary>
-        /// <typeparam name="TInput">Input type parameter.</typeparam>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="context"><c>DbContext</c> instance.</param>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -188,7 +178,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="cancellationToken">A <c>CancellationToken</c> to observe while waiting for the task to complete.</param>
         /// <param name="input">Input value.</param>
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
-        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, CancellationToken cancellationToken, TInput input)
+        public static async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(this DbContext context, string commandText, string entitySetName, ExecutionOptions executionOptions, CancellationToken cancellationToken, object input)
         {
             var parameters = ConvertHelper.ConvertToParameters(input);
             var adapter = (IObjectContextAdapter)context;
