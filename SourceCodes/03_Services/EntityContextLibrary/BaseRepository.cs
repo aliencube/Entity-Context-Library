@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Aliencube.EntityContextLibrary.Extensions;
 using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
@@ -456,6 +458,62 @@ namespace Aliencube.EntityContextLibrary
             {
                 await this.Context.SaveChangesAsync();
             }
+        }
+
+        /// <summary>
+        /// Execute stored precedure or direct SQL. This is mainly for the SELECT statements.
+        /// </summary>
+        /// <typeparam name="TInput">Input type parameter.</typeparam>
+        /// <typeparam name="TOutput">Output type parameter.</typeparam>
+        /// <param name="commandText">Query to run a stored procedure.</param>
+        /// <param name="input">Input value.</param>
+        /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
+        public virtual IEnumerable<TOutput> ExecuteStoreQuery<TInput, TOutput>(string commandText, TInput input)
+        {
+            var results = this.Context.ExecuteStoreQuery<TInput, TOutput>(commandText, input);
+            return results;
+        }
+
+        /// <summary>
+        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the SELECT statements.
+        /// </summary>
+        /// <typeparam name="TInput">Input type parameter.</typeparam>
+        /// <typeparam name="TOutput">Output type parameter.</typeparam>
+        /// <param name="commandText">Query to run a stored procedure.</param>
+        /// <param name="input">Input value.</param>
+        /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
+        public virtual async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TInput, TOutput>(string commandText, TInput input)
+        {
+            var results = await this.Context.ExecuteStoreQueryAsync<TInput, TOutput>(commandText, input);
+            return results;
+        }
+
+        /// <summary>
+        /// Execute stored precedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// </summary>
+        /// <typeparam name="TInput">Input type parameter.</typeparam>
+        /// <param name="commandText">Query to run a stored procedure.</param>
+        /// <param name="input">Input value.</param>
+        /// <returns>Returns the number of rows affected.</returns>
+        /// <remarks>Make sure that this might return -1, if the stored procedure contains the <c>SET NOCOUNT ON</c> statement.</remarks>
+        public virtual int ExecuteStoreCommand<TInput>(string commandText, TInput input)
+        {
+            var result = this.Context.ExecuteStoreCommand(commandText, input);
+            return result;
+        }
+
+        /// <summary>
+        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// </summary>
+        /// <typeparam name="TInput">Input type parameter.</typeparam>
+        /// <param name="commandText">Query to run a stored procedure.</param>
+        /// <param name="input">Input value.</param>
+        /// <returns>Returns the number of rows affected.</returns>
+        /// <remarks>Make sure that this might return -1, if the stored procedure contains the <c>SET NOCOUNT ON</c> statement.</remarks>
+        public virtual async Task<int> ExecuteStoreCommandAsync<TInput>(string commandText, TInput input)
+        {
+            var result = await this.Context.ExecuteStoreCommandAsync(commandText, input);
+            return result;
         }
 
         /// <summary>
