@@ -1,33 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CAE9D962-C737-49E8-AAA4-8A13477733BF}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Documents", "00_Documents", "{60AB08D1-FA2C-437A-B8C1-4252D84B56E0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{916CC74C-DB18-462E-8AEB-2D1235DB81A2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{60AB08D1-FA2C-437A-B8C1-4252D84B56E0}"
 	ProjectSection(SolutionItems) = preProject
-		..\Documents\Properties\SharedAssemblyInfo.cs = ..\Documents\Properties\SharedAssemblyInfo.cs
+		build.bat = build.bat
+		EntityContextLibrary.sln.DotSettings = EntityContextLibrary.sln.DotSettings
+		Settings.StyleCop = Settings.StyleCop
+		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Configs", "01_Configs", "{0F821833-8530-4F7B-A4DE-50078F8BCE80}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6CAC7E75-6B61-4E9A-8B9E-D826095C5EE3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Apps", "02_Apps", "{5337CE0B-FB46-4F93-8358-ADD3C6D311FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityContextLibrary.Tests", "Tests\EntityContextLibrary.Tests\EntityContextLibrary.Tests.csproj", "{5ADD3760-0899-4069-BDE1-0A0F810F2401}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Services", "03_Services", "{4F447CEA-D232-4B86-9E97-04CB3C63CDDB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityContextLibrary", "03_Services\EntityContextLibrary\EntityContextLibrary.csproj", "{F8AF8EBE-773E-4943-A46C-C888503EB7BF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Models", "04_Models", "{FF0B6B3E-8422-4941-895C-24D2D4365390}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99_Tests", "99_Tests", "{6CAC7E75-6B61-4E9A-8B9E-D826095C5EE3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityContextLibrary.Tests", "99_Tests\EntityContextLibrary.Tests\EntityContextLibrary.Tests.csproj", "{5ADD3760-0899-4069-BDE1-0A0F810F2401}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityContextLibrary", "EntityContextLibrary\EntityContextLibrary.csproj", "{F8AF8EBE-773E-4943-A46C-C888503EB7BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +41,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{916CC74C-DB18-462E-8AEB-2D1235DB81A2} = {60AB08D1-FA2C-437A-B8C1-4252D84B56E0}
-		{F8AF8EBE-773E-4943-A46C-C888503EB7BF} = {4F447CEA-D232-4B86-9E97-04CB3C63CDDB}
 		{5ADD3760-0899-4069-BDE1-0A0F810F2401} = {6CAC7E75-6B61-4E9A-8B9E-D826095C5EE3}
 	EndGlobalSection
 EndGlobal

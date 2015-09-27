@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\Documents\Properties\SharedAssemblyInfo.cs">
+    <Compile Include="..\..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Migrations\201505110052173_InitialCreate.cs" />
@@ -106,7 +106,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\03_Services\EntityContextLibrary\EntityContextLibrary.csproj">
+    <ProjectReference Include="..\..\EntityContextLibrary\EntityContextLibrary.csproj">
       <Project>{f8af8ebe-773e-4943-a46c-c888503eb7bf}</Project>
       <Name>EntityContextLibrary</Name>
     </ProjectReference>
