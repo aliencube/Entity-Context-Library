@@ -5,6 +5,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+
 using Aliencube.EntityContextLibrary.Extensions;
 using Aliencube.EntityContextLibrary.Interfaces;
 
@@ -23,7 +24,7 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
-        /// Initialises a new instance of the <c>BaseRepository</c> class.
+        /// Initialises a new instance of the <see cref="BaseRepository{TEntity}" /> class.
         /// </summary>
         /// <param name="contextFactory"><c>DbContextFactory</c> instance.</param>
         public BaseRepository(IDbContextFactory contextFactory)
@@ -55,19 +56,19 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Gets the collection of entities queriable
+        /// Gets the collection of entities queryable
         /// </summary>
         /// <param name="filter">Filter expression.</param>
-        /// <returns>Returns the collectioin of entities queriable.</returns>
+        /// <returns>Returns the collection of entities queryable.</returns>
         public virtual IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
         {
             return this._dbSet.Where(filter);
         }
 
         /// <summary>
-        /// Gets the entire collection of entities queriable.
+        /// Gets the entire collection of entities queryable.
         /// </summary>
-        /// <returns>Returns the entire collection of entities queriable.</returns>
+        /// <returns>Returns the entire collection of entities queryable.</returns>
         public virtual IQueryable<TEntity> Get()
         {
             return _dbSet;

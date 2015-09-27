@@ -19,16 +19,16 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         DbContext Context { get; }
 
         /// <summary>
-        /// Gets the collection of entities queriable
+        /// Gets the collection of entities queryable
         /// </summary>
         /// <param name="filter">Filter expression.</param>
-        /// <returns>Returns the collectioin of entities queriable.</returns>
+        /// <returns>Returns the collection of entities queryable.</returns>
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter);
 
         /// <summary>
-        /// Gets the entire collection of entities queriable.
+        /// Gets the entire collection of entities queryable.
         /// </summary>
-        /// <returns>Returns the entire collection of entities queriable.</returns>
+        /// <returns>Returns the entire collection of entities queryable.</returns>
         IQueryable<TEntity> Get();
 
         /// <summary>
