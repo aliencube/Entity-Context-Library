@@ -71,7 +71,7 @@ namespace Aliencube.EntityContextLibrary
         /// <returns>Returns the entire collection of entities queryable.</returns>
         public virtual IQueryable<TEntity> Get()
         {
-            return _dbSet;
+            return this._dbSet;
         }
 
         /// <summary>
@@ -114,7 +114,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entity">Entity instance to add.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void AddAsync(TEntity entity, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task AddAsync(TEntity entity, bool save = true)
         {
             this.Add(entity, false);
 
@@ -152,7 +153,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entities">List of entity instances to add.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void AddRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, bool save = true)
         {
             this.AddRange(entities, false);
 
@@ -188,7 +190,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void UpdateAsync(TEntity entity, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task UpdateAsync(TEntity entity, bool save = true)
         {
             this.Update(entity, false);
 
@@ -226,7 +229,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
         {
             this.UpdateRange(entities, false);
 
@@ -261,7 +265,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void AddOrUpdateAsync(TEntity entity, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task AddOrUpdateAsync(TEntity entity, bool save = true)
         {
             this.AddOrUpdate(entity, false);
 
@@ -299,7 +304,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true)
         {
             this.AddOrUpdateRange(entities, false);
 
@@ -335,7 +341,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entityId">EntityId as a primary key.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void DeleteAsync(object entityId, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task DeleteAsync(object entityId, bool save = true)
         {
             this.Delete(entityId, false);
 
@@ -373,7 +380,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entityIds">List of entityIds as primary keys.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true)
         {
             this.DeleteRange(entityIds, false);
 
@@ -413,7 +421,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entity">Entity instance to delete.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void DeleteAsync(TEntity entity, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task DeleteAsync(TEntity entity, bool save = true)
         {
             this.Delete(entity, false);
 
@@ -451,7 +460,8 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <param name="entities">List of entity instances to delete.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        public virtual async void DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true)
+        /// <returns>Returns <see cref="Task" />.</returns>
+        public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true)
         {
             this.DeleteRange(entities, false);
 
@@ -462,7 +472,7 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Execute stored precedure or direct SQL. This is mainly for the SELECT statements.
+        /// Execute stored procedure or direct SQL. This is mainly for the SELECT statements.
         /// </summary>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -475,7 +485,7 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the SELECT statements.
+        /// Execute stored procedure or direct SQL asynchronously. This is mainly for the SELECT statements.
         /// </summary>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -488,7 +498,7 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Execute stored precedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// Execute stored procedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
@@ -501,7 +511,7 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
-        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// Execute stored procedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>

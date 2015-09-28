@@ -50,7 +50,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entity">Entity instance to add.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void AddAsync(TEntity entity, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task AddAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Adds the new list of entities.
@@ -64,7 +65,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entities">List of entity instances to add.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void AddRangeAsync(IEnumerable<TEntity> entities, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task AddRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
         /// Updates the existing entity.
@@ -78,7 +80,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void UpdateAsync(TEntity entity, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task UpdateAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Updates the existing list of entities.
@@ -92,7 +95,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
         /// Adds or updates entity.
@@ -106,7 +110,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entity">Entity instance to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void AddOrUpdateAsync(TEntity entity, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task AddOrUpdateAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Adds or updates the existing list of entities.
@@ -120,7 +125,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entities">List of entity instances to update.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task AddOrUpdateRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
         /// Deletes the entity corresponding to the entityId fro the DB set.
@@ -134,7 +140,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entityId">EntityId as a primary key.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void DeleteAsync(object entityId, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task DeleteAsync(object entityId, bool save = true);
 
         /// <summary>
         /// Deletes the list of entities corresponding to the entityIds fro the DB set.
@@ -148,7 +155,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entityIds">List of entityIds as primary keys.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task DeleteRangeAsync(IEnumerable<object> entityIds, bool save = true);
 
         /// <summary>
         /// Deletes the entity from the DB set.
@@ -162,7 +170,8 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entity">Entity instance to delete.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void DeleteAsync(TEntity entity, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task DeleteAsync(TEntity entity, bool save = true);
 
         /// <summary>
         /// Deletes the list of entities from the DB set.
@@ -176,10 +185,11 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <param name="entities">List of entity instances to delete.</param>
         /// <param name="save">Value that specifies whether to save entity or not.</param>
-        void DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true);
+        /// <returns>Returns <see cref="Task" />.</returns>
+        Task DeleteRangeAsync(IEnumerable<TEntity> entities, bool save = true);
 
         /// <summary>
-        /// Execute stored precedure or direct SQL. This is mainly for the SELECT statements.
+        /// Execute stored procedure or direct SQL. This is mainly for the SELECT statements.
         /// </summary>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -188,7 +198,7 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         IEnumerable<TOutput> ExecuteStoreQuery<TOutput>(string commandText, object input);
 
         /// <summary>
-        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the SELECT statements.
+        /// Execute stored procedure or direct SQL asynchronously. This is mainly for the SELECT statements.
         /// </summary>
         /// <typeparam name="TOutput">Output type parameter.</typeparam>
         /// <param name="commandText">Query to run a stored procedure.</param>
@@ -197,7 +207,7 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(string commandText, object input);
 
         /// <summary>
-        /// Execute stored precedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// Execute stored procedure or direct SQL. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
@@ -206,7 +216,7 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         int ExecuteStoreCommand(string commandText, object input);
 
         /// <summary>
-        /// Execute stored precedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
+        /// Execute stored procedure or direct SQL asynchronously. This is mainly for the INSERT, UPDATE or DELETE statements.
         /// </summary>
         /// <param name="commandText">Query to run a stored procedure.</param>
         /// <param name="input">Input value.</param>
