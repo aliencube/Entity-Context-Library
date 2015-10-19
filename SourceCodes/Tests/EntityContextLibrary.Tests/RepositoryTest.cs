@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Aliencube.EntityContextLibrary.Tests
 {
     /// <summary>
-    /// This represents the test entity for repository.
+    /// This represents the test entity for the <see cref="BaseRepository{TEntity}" /> class..
     /// </summary>
     [TestFixture]
     public class RepositoryTest
