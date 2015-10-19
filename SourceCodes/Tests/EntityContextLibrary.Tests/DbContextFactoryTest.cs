@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Aliencube.EntityContextLibrary.Interfaces;
+using Aliencube.EntityContextLibrary.Tests.Models;
 
 using FluentAssertions;
 

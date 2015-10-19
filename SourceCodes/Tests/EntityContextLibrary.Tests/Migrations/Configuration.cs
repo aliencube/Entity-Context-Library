@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 
+using Aliencube.EntityContextLibrary.Tests.Models;
+
 namespace Aliencube.EntityContextLibrary.Tests.Migrations
 {
     /// <summary>
