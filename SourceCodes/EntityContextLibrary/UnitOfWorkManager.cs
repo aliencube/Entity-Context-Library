@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+
 using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
@@ -16,7 +17,7 @@ namespace Aliencube.EntityContextLibrary
         private bool _disposed;
 
         /// <summary>
-        /// Initialises a new instance of the <c>UnitOfWorkManager</c> class.
+        /// Initialises a new instance of the <see cref="UnitOfWorkManager" /> class.
         /// </summary>
         /// <param name="contextFactories">List of the <c>DbContextFactory</c> instances.</param>
         public UnitOfWorkManager(params IDbContextFactory[] contextFactories)

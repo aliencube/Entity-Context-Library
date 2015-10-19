@@ -51,6 +51,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BaseRepositoryAsync.cs" />
     <Compile Include="DbContextFactory.cs" />
     <Compile Include="Extensions\ConvertHelper.cs" />
     <Compile Include="Extensions\DbContextCommandExtensions.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Interfaces\IUnitOfWorkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="UnitOfWorkPrivate.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UnitOfWorkManager.cs" />
   </ItemGroup>
