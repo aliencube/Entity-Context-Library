@@ -66,12 +66,31 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
+        /// Gets the collection of entities queryable
+        /// </summary>
+        /// <param name="filter">Filter expression.</param>
+        /// <returns>Returns the collection of entities queryable.</returns>
+        public virtual async Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return await Task.FromResult(this._dbSet.Where(filter));
+        }
+
+        /// <summary>
         /// Gets the entire collection of entities queryable.
         /// </summary>
         /// <returns>Returns the entire collection of entities queryable.</returns>
         public virtual IQueryable<TEntity> Get()
         {
             return this._dbSet;
+        }
+
+        /// <summary>
+        /// Gets the entire collection of entities queryable.
+        /// </summary>
+        /// <returns>Returns the entire collection of entities queryable.</returns>
+        public virtual async Task<IQueryable<TEntity>> GetAsync()
+        {
+            return await Task.FromResult(this._dbSet);
         }
 
         /// <summary>
@@ -87,6 +106,21 @@ namespace Aliencube.EntityContextLibrary
             }
 
             return this._dbSet.Find(entityId);
+        }
+
+        /// <summary>
+        /// Gets the entity corresponding to the entityId.
+        /// </summary>
+        /// <param name="entityId">EntityId as a primary key.</param>
+        /// <returns>Returns the entity corresponding to the entityId.</returns>
+        public virtual async Task<TEntity> GetAsync(object entityId)
+        {
+            if (entityId == null || (int)entityId < 0)
+            {
+                throw new ArgumentOutOfRangeException("entityId");
+            }
+
+            return await Task.FromResult(this._dbSet.Find(entityId));
         }
 
         /// <summary>

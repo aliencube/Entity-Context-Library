@@ -26,10 +26,23 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter);
 
         /// <summary>
+        /// Gets the collection of entities queryable
+        /// </summary>
+        /// <param name="filter">Filter expression.</param>
+        /// <returns>Returns the collection of entities queryable.</returns>
+        Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter);
+
+        /// <summary>
         /// Gets the entire collection of entities queryable.
         /// </summary>
         /// <returns>Returns the entire collection of entities queryable.</returns>
         IQueryable<TEntity> Get();
+
+        /// <summary>
+        /// Gets the entire collection of entities queryable.
+        /// </summary>
+        /// <returns>Returns the entire collection of entities queryable.</returns>
+        Task<IQueryable<TEntity>> GetAsync();
 
         /// <summary>
         /// Gets the entity corresponding to the entityId.
@@ -37,6 +50,13 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// <param name="entityId">EntityId as a primary key.</param>
         /// <returns>Returns the entity corresponding to the entityId.</returns>
         TEntity Get(object entityId);
+
+        /// <summary>
+        /// Gets the entity corresponding to the entityId.
+        /// </summary>
+        /// <param name="entityId">EntityId as a primary key.</param>
+        /// <returns>Returns the entity corresponding to the entityId.</returns>
+        Task<TEntity> GetAsync(object entityId);
 
         /// <summary>
         /// Adds the new entity.

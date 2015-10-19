@@ -1,5 +1,7 @@
 using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Aliencube.EntityContextLibrary.Interfaces;
 using Aliencube.EntityContextLibrary.Tests.Helpers;
@@ -92,6 +94,28 @@ namespace Aliencube.EntityContextLibrary.Tests
         }
 
         /// <summary>
+        /// Tests whether a product is added or not.
+        /// </summary>
+        /// <param name="name">The product name.</param>
+        /// <param name="description">The product description.</param>
+        /// <param name="price">The product price.</param>
+        /// <returns>
+        /// Returns <see cref="Task" />.
+        /// </returns>
+        [Test]
+        [TestCase("TEST Product", "TEST Description", 100.00)]
+        public async Task Given_ProductDetails_Should_Add_Product_To_RepositoryAsync(string name, string description, decimal price)
+        {
+            var product = new Product() { Name = name, Description = description, Price = price };
+            await this._repository.AddAsync(product);
+
+            var added = await this._repository.Get().OrderByDescending(p => p.ProductId).FirstAsync();
+            added.Name.Should().Be(name);
+            added.Description.Should().Be(description);
+            added.Price.Should().Be(price);
+        }
+
+        /// <summary>
         /// Tests whether a number of products are added or not.
         /// </summary>
         /// <param name="count">Number of products to return.</param>
@@ -104,6 +128,27 @@ namespace Aliencube.EntityContextLibrary.Tests
             this._repository.AddRange(products);
 
             var added = this._repository.Get().OrderByDescending(p => p.ProductId).Take(count).ToList();
+            added.Last().Name.Should().Be(products.First().Name);
+            added.Last().Description.Should().Be(products.First().Description);
+            added.Last().Price.Should().Be(products.First().Price);
+        }
+
+        /// <summary>
+        /// Tests whether a number of products are added or not.
+        /// </summary>
+        /// <param name="count">Number of products to return.</param>
+        /// <param name="index">Index value for product.</param>
+        /// <returns>
+        /// Returns <see cref="Task" />.
+        /// </returns>
+        [Test]
+        [TestCase(2, 11)]
+        public async Task Given_ProductDetails_Should_Add_Products_To_RepositoryAsync(int count, int index)
+        {
+            var products = ProductHelper.CreateProducts(count, index);
+            await this._repository.AddRangeAsync(products);
+
+            var added = await this._repository.Get().OrderByDescending(p => p.ProductId).Take(count).ToListAsync();
             added.Last().Name.Should().Be(products.First().Name);
             added.Last().Description.Should().Be(products.First().Description);
             added.Last().Price.Should().Be(products.First().Price);
@@ -123,6 +168,21 @@ namespace Aliencube.EntityContextLibrary.Tests
         }
 
         /// <summary>
+        /// Tests whether a product is returned by executing stored procedure or not.
+        /// </summary>
+        /// <param name="productId">The product Id.</param>
+        /// <returns>
+        /// Returns <see cref="Task" />.
+        /// </returns>
+        [Test]
+        [TestCase(1)]
+        public async Task Given_ProductId_Should_Run_StoredProcedureAsync(int productId)
+        {
+            var results = await this._repository.ExecuteStoreQueryAsync<Product>("EXEC GetProduct @ProductId", new { ProductId = productId });
+            results.Single().ProductId.Should().Be(productId);
+        }
+
+        /// <summary>
         /// Tests whether a product is added by executing stored procedure or not.
         /// </summary>
         /// <param name="name">The product name.</param>
@@ -135,6 +195,27 @@ namespace Aliencube.EntityContextLibrary.Tests
             var result = this._repository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = name, Description = description, Price = price });
 
             var added = this._repository.Get().OrderByDescending(p => p.ProductId).First();
+            added.Name.Should().Be(name);
+            added.Description.Should().Be(description);
+            added.Price.Should().Be(price);
+        }
+
+        /// <summary>
+        /// Tests whether a product is added by executing stored procedure or not.
+        /// </summary>
+        /// <param name="name">The product name.</param>
+        /// <param name="description">The product description.</param>
+        /// <param name="price">The product price.</param>
+        /// <returns>
+        /// Returns <see cref="Task" />.
+        /// </returns>
+        [Test]
+        [TestCase("TEST Product", "TEST Description", 100.00)]
+        public async Task Given_ProductDetails_Should_Run_StoredProcedureAsync(string name, string description, decimal price)
+        {
+            var result = await this._repository.ExecuteStoreCommandAsync("EXEC AddProduct @Name, @Description, @Price", new { Name = name, Description = description, Price = price });
+
+            var added = await this._repository.Get().OrderByDescending(p => p.ProductId).FirstAsync();
             added.Name.Should().Be(name);
             added.Description.Should().Be(description);
             added.Price.Should().Be(price);
