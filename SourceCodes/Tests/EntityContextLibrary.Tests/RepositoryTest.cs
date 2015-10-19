@@ -1,14 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+
 using Aliencube.EntityContextLibrary.Interfaces;
+using Aliencube.EntityContextLibrary.Tests.Helpers;
 using Aliencube.EntityContextLibrary.Tests.Models;
 
 using FluentAssertions;
+
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
+    /// <summary>
+    /// This represents the test entity for repository.
+    /// </summary>
     [TestFixture]
     public class RepositoryTest
     {
@@ -16,6 +21,9 @@ namespace Aliencube.EntityContextLibrary.Tests
         private IDbContextFactory _factory;
         private IBaseRepository<Product> _repository;
 
+        /// <summary>
+        /// Initialises all resources for tests.
+        /// </summary>
         [SetUp]
         public void Init()
         {
@@ -26,6 +34,9 @@ namespace Aliencube.EntityContextLibrary.Tests
             this._repository = new BaseRepository<Product>(this._factory);
         }
 
+        /// <summary>
+        /// Release all resources after tests.
+        /// </summary>
         [TearDown]
         public void Cleanup()
         {
@@ -45,9 +56,14 @@ namespace Aliencube.EntityContextLibrary.Tests
             }
         }
 
+        /// <summary>
+        /// Tests whether a product is returned by given product Id or not.
+        /// </summary>
+        /// <param name="productId">The product Id.</param>
         [Test]
         [TestCase(1)]
-        public void GetProduct_GivenContext_ReturnProduct(int productId)
+        [TestCase(2)]
+        public void Given_ProductId_Should_Return_Product(int productId)
         {
             var product = this._repository.Get(p => p.ProductId == productId).SingleOrDefault();
             product.Should().NotBeNull();
@@ -56,52 +72,72 @@ namespace Aliencube.EntityContextLibrary.Tests
             product.Should().NotBeNull();
         }
 
+        /// <summary>
+        /// Tests whether a product is added or not.
+        /// </summary>
+        /// <param name="name">The product name.</param>
+        /// <param name="description">The product description.</param>
+        /// <param name="price">The product price.</param>
         [Test]
-        public void AddProduct_GivenContext_ProductAdded()
+        [TestCase("TEST Product", "TEST Description", 100.00)]
+        public void Given_ProductDetails_Should_Add_Product_To_Repository(string name, string description, decimal price)
         {
-            var productBeforeCount = this._repository.Get().Count();
-
-            var product = new Product() { Name = "TEST Product", Description = "TEST Description", Price = 100.00M };
+            var product = new Product() { Name = name, Description = description, Price = price };
             this._repository.Add(product);
 
-            var productAfterCount = this._repository.Get().Count();
-            productAfterCount.Should().Be(productBeforeCount + 1);
+            var added = this._repository.Get().OrderByDescending(p => p.ProductId).First();
+            added.Name.Should().Be(name);
+            added.Description.Should().Be(description);
+            added.Price.Should().Be(price);
         }
 
+        /// <summary>
+        /// Tests whether a number of products are added or not.
+        /// </summary>
+        /// <param name="count">Number of products to return.</param>
+        /// <param name="index">Index value for product.</param>
         [Test]
-        public void AddProducts_GivenContext_ProductsAdded()
+        [TestCase(2, 11)]
+        public void Given_ProductDetails_Should_Add_Products_To_Repository(int count, int index)
         {
-            var productBeforeCount = this._repository.Get().Count();
-
-            var products = new List<Product>()
-                           {
-                               new Product() { Name = "Name 11", Description = "Description 11", Price = 100.00M },
-                               new Product() { Name = "Name 12", Description = "Description 12", Price = 200.00M },
-                           };
+            var products = ProductHelper.CreateProducts(count, index);
             this._repository.AddRange(products);
 
-            var productAfterCount = this._repository.Get().Count();
-
-            productAfterCount.Should().Be(productBeforeCount + products.Count);
+            var added = this._repository.Get().OrderByDescending(p => p.ProductId).Take(count).ToList();
+            added.Last().Name.Should().Be(products.First().Name);
+            added.Last().Description.Should().Be(products.First().Description);
+            added.Last().Price.Should().Be(products.First().Price);
         }
 
+        /// <summary>
+        /// Tests whether a product is returned by executing stored procedure or not.
+        /// </summary>
+        /// <param name="productId">The product Id.</param>
         [Test]
-        public void RunStoredQuery_GivenContext_ProductSelected()
+        [TestCase(1)]
+        public void Given_ProductId_Should_Run_StoredProcedure(int productId)
         {
-            var results = this._repository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = 1 });
+            var results = this._repository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = productId }).ToList();
             results.Should().HaveCount(1);
+            results.Single().ProductId.Should().Be(productId);
         }
 
+        /// <summary>
+        /// Tests whether a product is added by executing stored procedure or not.
+        /// </summary>
+        /// <param name="name">The product name.</param>
+        /// <param name="description">The product description.</param>
+        /// <param name="price">The product price.</param>
         [Test]
-        public void RunStoredCommand_GivenContext_ProductAdded()
+        [TestCase("TEST Product", "TEST Description", 100.00)]
+        public void Given_ProductDetails_Should_Run_StoredProcedure(string name, string description, decimal price)
         {
-            var productBeforeCount = this._repository.Get().Count();
+            var result = this._repository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = name, Description = description, Price = price });
 
-            var result = this._repository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = "Test Product", Description = "Test Description", Price = 50.00M });
-
-            var productAfterCount = this._repository.Get().Count();
-
-            productAfterCount.Should().Be(productBeforeCount + 1);
+            var added = this._repository.Get().OrderByDescending(p => p.ProductId).First();
+            added.Name.Should().Be(name);
+            added.Description.Should().Be(description);
+            added.Price.Should().Be(price);
         }
     }
 }
