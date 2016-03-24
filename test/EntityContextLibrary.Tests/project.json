@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0-alpha-",
+  "requireLicenseAcceptance": true,
+  "authors": [
+    "justinyoo"
+  ],
+  "owners": [
+    "justinyoo"
+  ],
+  "licenseUrl": "https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE",
+  "projectUrl": "https://github.com/aliencube/Entity-Context-Library",
+  "title": "Entity Framework Context Library Test",
+  "summary": "Test project for Entity Framework Context Library (ECL).",
+  "description": "This project is to test Entity Framework Context Library (ECL).",
+  "tags": [
+    "Aliencube",
+    "Entity Framework",
+    "EF",
+    "EF7",
+    "DbContext",
+    "UnitOfWork",
+    "Repository Pattern"
+  ],
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  },
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "Moq": "4.2.1510.2205"
+      }
+    },
+    "dnxcore50": {
+      "dependencies": {
+        "moq.netcore": "4.4.0-beta8"
+      }
+    }
+  },
+
+  "dependencies": {
+    "EntityContextLibrary": "2.0.0-alpha-*",
+    "FluentAssertions": "4.2.2",
+    "xunit": "2.2.0-beta1-build3239",
+    "xunit.runner.dnx": "2.1.0-rc1-build204",
+    "xunit.runner.visualstudio": "2.2.0-beta1-build1144"
+  }
+}
