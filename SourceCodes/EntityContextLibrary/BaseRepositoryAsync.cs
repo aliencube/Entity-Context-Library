@@ -21,7 +21,7 @@ namespace Aliencube.EntityContextLibrary
         /// <returns>Returns the collection of entities queryable.</returns>
         public virtual async Task<IQueryable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter)
         {
-            return await Task.FromResult(this._dbSet.Where(filter));
+            return await Task.FromResult(this._dbSet.Where(filter)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Aliencube.EntityContextLibrary
         /// <returns>Returns the entire collection of entities queryable.</returns>
         public virtual async Task<IQueryable<TEntity>> GetAsync()
         {
-            return await Task.FromResult(this._dbSet);
+            return await Task.FromResult(this._dbSet).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Aliencube.EntityContextLibrary
                 throw new ArgumentOutOfRangeException("entityId");
             }
 
-            return await Task.FromResult(this._dbSet.Find(entityId));
+            return await Task.FromResult(this._dbSet.Find(entityId)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -108,7 +108,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -124,7 +124,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -156,7 +156,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -172,7 +172,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -188,7 +188,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -204,7 +204,7 @@ namespace Aliencube.EntityContextLibrary
 
             if (save)
             {
-                await this.Context.SaveChangesAsync();
+                await this.Context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -217,7 +217,7 @@ namespace Aliencube.EntityContextLibrary
         /// <returns>Returns the list of <c>TOutput</c> objects.</returns>
         public virtual async Task<IEnumerable<TOutput>> ExecuteStoreQueryAsync<TOutput>(string commandText, object input)
         {
-            var results = await this.Context.ExecuteStoreQueryAsync<TOutput>(commandText, input);
+            var results = await this.Context.ExecuteStoreQueryAsync<TOutput>(commandText, input).ConfigureAwait(false);
             return results;
         }
 
@@ -230,7 +230,7 @@ namespace Aliencube.EntityContextLibrary
         /// <remarks>Make sure that this might return -1, if the stored procedure contains the <c>SET NOCOUNT ON</c> statement.</remarks>
         public virtual async Task<int> ExecuteStoreCommandAsync(string commandText, object input)
         {
-            var result = await this.Context.ExecuteStoreCommandAsync(commandText, input);
+            var result = await this.Context.ExecuteStoreCommandAsync(commandText, input).ConfigureAwait(false);
             return result;
         }
     }
