@@ -1,20 +1,31 @@
 ﻿using System;
+
 using Aliencube.EntityContextLibrary.Interfaces;
+using Aliencube.EntityContextLibrary.Tests.Models;
+
 using FluentAssertions;
-using NSubstitute;
+
+using Moq;
+
 using NUnit.Framework;
 
 namespace Aliencube.EntityContextLibrary.Tests
 {
+    /// <summary>
+    /// This represents the test entity for the <see cref="UnitOfWorkManager" /> class.
+    /// </summary>
     [TestFixture]
     public class UnitOfWorkManagerTest
     {
         private ProductContext _productContext;
         private UserContext _userContext;
-        private IDbContextFactory _productContextFactory;
-        private IDbContextFactory _userContextFactory;
+        private Mock<IDbContextFactory> _productContextFactory;
+        private Mock<IDbContextFactory> _userContextFactory;
         private IUnitOfWorkManager _uowm;
 
+        /// <summary>
+        /// Initialises all resources for tests.
+        /// </summary>
         [SetUp]
         public void Init()
         {
@@ -23,31 +34,24 @@ namespace Aliencube.EntityContextLibrary.Tests
             this._productContext = new ProductContext();
             this._userContext = new UserContext();
 
-            this._productContextFactory = Substitute.For<IDbContextFactory>();
-            this._userContextFactory = Substitute.For<IDbContextFactory>();
+            this._productContextFactory = new Mock<IDbContextFactory>();
+            this._userContextFactory = new Mock<IDbContextFactory>();
 
-            this._productContextFactory.DbContextType.Returns(typeof(ProductContext));
-            this._userContextFactory.DbContextType.Returns(typeof(UserContext));
+            this._productContextFactory.Setup(p => p.DbContextType).Returns(typeof(ProductContext));
+            this._userContextFactory.Setup(p => p.DbContextType).Returns(typeof(UserContext));
 
-            this._uowm = new UnitOfWorkManager(this._productContextFactory, this._userContextFactory);
+            this._uowm = new UnitOfWorkManager(this._productContextFactory.Object, this._userContextFactory.Object);
         }
 
+        /// <summary>
+        /// Release all resources after tests.
+        /// </summary>
         [TearDown]
         public void Cleanup()
         {
             if (this._uowm != null)
             {
                 this._uowm.Dispose();
-            }
-
-            if (this._productContextFactory != null)
-            {
-                this._productContextFactory.Dispose();
-            }
-
-            if (this._userContextFactory != null)
-            {
-                this._userContextFactory.Dispose();
             }
 
             if (this._productContext != null)
@@ -61,11 +65,14 @@ namespace Aliencube.EntityContextLibrary.Tests
             }
         }
 
+        /// <summary>
+        /// Tests whether the unit of work manager returns correct DbContext or not.
+        /// </summary>
         [Test]
-        public void GetContext_GivenDetails_ReturnContext()
+        public void UnitOfWorkManager_Should_Return_DbContext_Of_Type()
         {
-            this._productContextFactory.Context.Returns(this._productContext);
-            this._userContextFactory.Context.Returns(this._userContext);
+            this._productContextFactory.Setup(p => p.Context).Returns(this._productContext);
+            this._userContextFactory.Setup(p => p.Context).Returns(this._userContext);
 
             var puow = this._uowm.CreateInstance<ProductContext>();
             puow.DbContextType.Should().Be<ProductContext>();

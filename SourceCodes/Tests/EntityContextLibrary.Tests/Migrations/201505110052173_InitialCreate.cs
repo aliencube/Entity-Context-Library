@@ -4,11 +4,17 @@ using System.Reflection;
 
 namespace Aliencube.EntityContextLibrary.Tests.Migrations
 {
+    /// <summary>
+    /// This represents the DB migration entity for the first migration.
+    /// </summary>
     public partial class InitialCreate : DbMigration
     {
+        /// <summary>
+        /// Operations to be performed during the upgrade process.
+        /// </summary>
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.Products",
                 c => new
                     {
@@ -23,21 +29,25 @@ namespace Aliencube.EntityContextLibrary.Tests.Migrations
             this.SqlFromFile("GetProduct.sql");
         }
 
+        /// <summary>
+        /// Operations to be performed during the downgrade process.
+        /// </summary>
         public override void Down()
         {
-            DropTable("dbo.Products");
+            this.DropTable("dbo.Products");
         }
 
         private void SqlFromFile(string sqlFileName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var stream = assembly.GetManifestResourceStream(GetType(), sqlFileName);
+            var stream = assembly.GetManifestResourceStream(this.GetType(), sqlFileName);
             if (stream == null)
             {
                 throw new FileNotFoundException("Could not find the embedded resource: " + sqlFileName);
             }
+
             var sqlToExecute = new StreamReader(stream).ReadToEnd();
-            Sql(sqlToExecute);
+            this.Sql(sqlToExecute);
         }
     }
 }

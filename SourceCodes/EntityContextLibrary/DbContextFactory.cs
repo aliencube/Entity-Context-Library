@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+
 using Aliencube.EntityContextLibrary.Interfaces;
 
 namespace Aliencube.EntityContextLibrary
@@ -7,6 +8,9 @@ namespace Aliencube.EntityContextLibrary
     /// <summary>
     /// This represents the factory entity for <c>DbContext</c>.
     /// </summary>
+    /// <typeparam name="TContext">
+    /// Type parameter of the context class inheriting <see cref="DbContext" />.
+    /// </typeparam>
     public class DbContextFactory<TContext> : IDbContextFactory where TContext : DbContext
     {
         private TContext _dbContext;
