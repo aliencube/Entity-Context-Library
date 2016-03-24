@@ -5,16 +5,7 @@
 
 ## Package Status ##
 
-| **Entity Context Library** |
-|:--------------------------:|
-| [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) [![](https://img.shields.io/nuget/dt/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) |
-
-
-## Build Status ##
-
-| `master` | `dev` | `release` |
-|:--------:|:-----:|:---------:|
-| [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/master?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/release?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/release) |
+[![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) 
 
 
 ## Getting Started ##
