@@ -39,7 +39,7 @@ namespace Aliencube.EntityContextLibrary
                 throw new ArgumentNullException(nameof(dbContexts));
             }
 
-            this._dbContexts = dbContexts.ToList();
+            this._dbContexts = dbContexts;
         }
 
         /// <summary>

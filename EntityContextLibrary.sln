@@ -10,10 +10,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{937DF47E-D43F-40ED-A171-93024E50EF31}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
 		EntityContextLibrary.sln.DotSettings = EntityContextLibrary.sln.DotSettings
 		global.json = global.json
 		LICENSE = LICENSE
 		README.md = README.md
+		run-project-versioning.ps1 = run-project-versioning.ps1
+		run-tests.ps1 = run-tests.ps1
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
