@@ -19,15 +19,20 @@
     "EF7",
     "DbContext",
     "UnitOfWork",
-    "Repository Pattern" ],
+    "Repository Pattern"
+  ],
 
   "frameworks": {
-    "net451": { },
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": "4.0.10.0"
+      }
+    },
     "dnx451": { },
     "dnxcore50": { }
   },
 
   "dependencies": {
-    "EntityFramework.Core": "7.0.0-rc1-final"
+    "EntityFramework.Relational": "7.0.0-rc1-final"
   }
 }
