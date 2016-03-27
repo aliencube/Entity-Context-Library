@@ -12,7 +12,7 @@ var updateVersion = function (err, project) {
     }
 
     var buildNumber = process.env.APPVEYOR_BUILD_NUMBER;
-    var version = semver.valid(project.version + "-" + buildNumber);
+    var version = semver.valid(project.version.replace(/\-(alpha|beta|rc\d*)\-\*/i, "-$1-" + buildNumber));
     project.version = version;
 
     jsonfile.writeFile(file, project, { spaces: 2 }, onVersionUpdated);
