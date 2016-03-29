@@ -20,11 +20,11 @@ $exitCode = 0
 
 $projects = Get-ChildItem .\src, .\test | ?{$_.PsIsContainer}
 foreach($project in $projects) {
-    # Display project name
-    Write-Host "`n$project`n" -ForegroundColor Green
-
     $projectPath = $project.FullName
     $projectName = $project.Name
+
+    # Display project name
+    Write-Host "`nBuild the $projectName project`n" -ForegroundColor Green
 
     # Build project
     dnu build $projectPath --out .\artifacts\bin\$projectName --configuration $configuration

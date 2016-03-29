@@ -17,7 +17,7 @@ $exitCode = 0
 $projects = Get-ChildItem .\test | ?{$_.PsIsContainer}
 foreach($project in $projects) {
     # Display project name
-    Write-Host "`n$project`n" -ForegroundColor Green
+    Write-Host "`nTest the $project project`n" -ForegroundColor Green
 
     # Move to the project
     cd test/$project

@@ -2,7 +2,7 @@
 
 $project = "Aliencube.EntityContextLibrary"
 
-Write-Host "`n$project`n" -ForegroundColor Green
+Write-Host "`nUpdate verion on the $project project`n" -ForegroundColor Green
 
 cd ./src/$project
 

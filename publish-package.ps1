@@ -14,11 +14,16 @@ if (![string]::IsNullOrWhiteSpace($Config))
     $configuration = $Config
 }
 
-$projectName = "Aliencube.EntityContextLibrary"
+$project = "Aliencube.EntityContextLibrary"
 
-# dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+# Display project name
+Write-Host "`nPublish the $project project to as a NuGet package`n" -ForegroundColor Green
 
-dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $Config
+dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+
+dnu pack .\src\$project --out .\artifacts\bin\$project --configuration $Config
+
+Get-ChildItem *.nupkg -Recurse
 
 if ($LASTEXITCODE -ne 0) {
     $host.SetShouldExit($exitCode)
