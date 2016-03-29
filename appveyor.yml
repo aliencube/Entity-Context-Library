@@ -7,7 +7,6 @@
     only:
     - dev
     - master
-    - feature/dnx
   skip_tags: true
   image: Visual Studio 2015
   configuration: Debug

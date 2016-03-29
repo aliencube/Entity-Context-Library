@@ -12,10 +12,9 @@ foreach($dnvm in $dnvms) {
     dnvm install $dnvm.Version -r $dnvm.Runtime -a $dnvm.Architecture -OS $dnvm.OS
 }
 
-$projects = Get-ChildItem .\test | ?{$_.PsIsContainer}
-
 $exitCode = 0
 
+$projects = Get-ChildItem .\test | ?{$_.PsIsContainer}
 foreach($project in $projects) {
     # Display project name
     Write-Host "`n$project`n" -ForegroundColor Green
