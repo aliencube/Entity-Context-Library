@@ -5,15 +5,43 @@
 
 ## Package Status ##
 
-[![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) 
+[![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/)
+
+
+## Entity Framework Support ##
+
+**ECL** supports Entity Framework 6.x (`1.x`) and Entity Framework 7 (`2.x`).
+
+
+### Package Download from Web ###
+
+* ECL 1.2.0 download: [https://www.nuget.org/packages/Aliencube.EntityContextLibrary/1.2.0](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/1.2.0)
+* ECL 2.x download: [https://www.nuget.org/packages/Aliencube.EntityContextLibrary](https://www.nuget.org/packages/Aliencube.EntityContextLibrary)
+
+
+### Package Download - NuGet Package Manager ###
+
+You can also download ECL from NuGet Package Manager by entering commands like:
+
+```powershell
+Install-Package Aliencube.EntityContextLibrary -Version 1.2.0
+```
+
+```powershell
+Install-Package Aliencube.EntityContextLibrary -Pre
+```
 
 
 ## Getting Started ##
 
 **ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IBaseRepository`, `IUnitOfWork` and `IUnitOfWorkManager`.
 
+> NOTE: `IBaseRepository` is deprecated in `2.x`.
 
-### `IDbContextFactory` ###
+
+## `IDbContextFactory` ##
+
+### `1.x` ###
 
 `IDbContextFactory` interface provides a simple interface to return a `DbContext` instance based on type. This can be useful when multiple database connection strings are used in one application. Here's a sample code snippet, assuming [`Autofac`](http://autofac.org) is used together, as an IoC container.
 
@@ -47,8 +75,17 @@ public static class Program
 
 ```
 
+### `2.x` ###
+
+`IDbContextFactory` provides a simple way to consolidate all registered `DbContext` instances. With an IoC container, it can be done like:
+
+```csharp
+```
+
 
 ### `IBaseRepository` ###
+
+> NOTE: This interface only supports in `1.x`.
 
 `IBaseRepository` interface provides a basic CRUD methods for each repository representing a table in a database. Therefore, each repository can just inherit the base repository class and use it. In addition to this, all methods like `Get`, `Add`, `AddRange`, `Update`, `UpdateRange`, `Delete` and `DeleteRange` methods are overrideable, so you can redefine your way of `SELECT`, `INSERT`, `UPDATE` and `DELETE` actions. Here's a sample usage.
 
