@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0-alpha-*",
+  "version": "1.0.0",
   "requireLicenseAcceptance": true,
   "authors": [
     "justinyoo"
@@ -28,7 +28,7 @@
 
   "dependencies": {
     "Aliencube.EntityContextLibrary": "2.0.0-alpha-*",
-    "Aliencube.EntityContextLibrary.Models": "2.0.0-alpha-*",
+    "Aliencube.EntityContextLibrary.Models": "1.0.0",
     "Autofac": "4.0.0-rc1-177",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc1-177",
     "EntityFramework.Commands": "7.0.0-rc1-final",

@@ -1,20 +1,13 @@
 # This PowerShel script appends AppVeyor build number to the package version.
 
-$projects = Get-ChildItem .\src | ?{$_.PsIsContainer}
+$project = "Aliencube.EntityContextLibrary"
 
-foreach($project in $projects) {
-    # Display project name
-    $project
+Write-Host "`n$project`n" -ForegroundColor Green
 
-    # Move to the project
-    cd src/$project
+cd ./src/$project
 
-    # NPM install
-    npm install
+npm install
 
-    # Run node.js script
-    node project-version.js
+node project-version.js
 
-    # Move back to the solution root
-    cd ../../
-}
+cd ../../
