@@ -3,7 +3,7 @@
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 
-namespace Aliencube.EntityContextLibrary.Tests.Models
+namespace Aliencube.EntityContextLibrary.Models
 {
     /// <summary>
     /// This represents the database context entity for product.

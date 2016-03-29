@@ -1,8 +1,8 @@
 ﻿using System;
 
 using Aliencube.EntityContextLibrary.Interfaces;
+using Aliencube.EntityContextLibrary.Models;
 using Aliencube.EntityContextLibrary.Tests.Fixtures;
-using Aliencube.EntityContextLibrary.Tests.Models;
 
 using FluentAssertions;
 

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 using Aliencube.EntityContextLibrary.Interfaces;
 using Aliencube.EntityContextLibrary.Tests.Fixtures;
 
 using FluentAssertions;
-
-using Microsoft.Data.Entity;
 
 using Xunit;
 

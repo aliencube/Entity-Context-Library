@@ -1,5 +1,4 @@
 ﻿using Aliencube.EntityContextLibrary.Interfaces;
-using Aliencube.EntityContextLibrary.Tests.Models;
 
 namespace Aliencube.EntityContextLibrary.Tests.Fixtures
 {

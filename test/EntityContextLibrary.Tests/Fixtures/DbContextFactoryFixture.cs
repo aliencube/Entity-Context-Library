@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Aliencube.EntityContextLibrary.Interfaces;
-using Aliencube.EntityContextLibrary.Tests.Models;
+using Aliencube.EntityContextLibrary.Models;
 
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
@@ -28,7 +28,7 @@ namespace Aliencube.EntityContextLibrary.Tests.Fixtures
             productDbContextBuilder.UseInMemoryDatabase();
 
             this.ProductDbContext = new ProductDbContext(serviceCollection.BuildServiceProvider(), productDbContextBuilder.Options);
-            
+
             var userDbContextBuilder = new DbContextOptionsBuilder<UserDbContext>();
             userDbContextBuilder.UseInMemoryDatabase();
 

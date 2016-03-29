@@ -4,12 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Aliencube.EntityContextLibrary.Interfaces;
+using Aliencube.EntityContextLibrary.Models;
 using Aliencube.EntityContextLibrary.Tests.Fixtures;
-using Aliencube.EntityContextLibrary.Tests.Models;
 
 using FluentAssertions;
-
-using Microsoft.Data.Entity;
 
 using Xunit;
 

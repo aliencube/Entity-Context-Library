@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Aliencube.EntityContextLibrary.Interfaces;
-using Aliencube.EntityContextLibrary.Tests.Models;
+using Aliencube.EntityContextLibrary.Models;
 
 namespace Aliencube.EntityContextLibrary.Tests.Fixtures
 {

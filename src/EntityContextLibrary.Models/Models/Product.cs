@@ -1,4 +1,4 @@
-﻿namespace Aliencube.EntityContextLibrary.Tests.Models
+﻿namespace Aliencube.EntityContextLibrary.Models
 {
     /// <summary>
     /// This represents the model entity for product.
