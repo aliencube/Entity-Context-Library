@@ -4,6 +4,7 @@ using Aliencube.EntityContextLibrary.Interfaces;
 using Aliencube.EntityContextLibrary.Tests.Models;
 
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aliencube.EntityContextLibrary.Tests.Fixtures
@@ -21,7 +22,7 @@ namespace Aliencube.EntityContextLibrary.Tests.Fixtures
         public DbContextFactoryFixture()
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.AddEntityFramework().AddInMemoryDatabase();
+            serviceCollection.AddEntityFramework().AddRelational().AddInMemoryDatabase();
 
             var productDbContextBuilder = new DbContextOptionsBuilder<ProductDbContext>();
             productDbContextBuilder.UseInMemoryDatabase();
@@ -56,9 +57,23 @@ namespace Aliencube.EntityContextLibrary.Tests.Fixtures
         /// </summary>
         public void Dispose()
         {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <param name="disposing">Value indicating whether the instance is being disposed or not.</param>
+        protected virtual void Dispose(bool disposing)
+        {
             if (this._disposed)
             {
                 return;
+            }
+
+            if (disposing)
+            {
             }
 
             this._disposed = true;
