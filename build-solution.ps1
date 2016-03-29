@@ -7,7 +7,7 @@ Param(
     [string] [Parameter(Mandatory=$false)] $Config
 )
 
-$configuration = $env:configuration
+$configuration = "Debug"
 
 if (![string]::IsNullOrWhiteSpace($Config))
 {
