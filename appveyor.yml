@@ -70,6 +70,15 @@
       branch: release/all
       platform: Any CPU
       configuration: Release
+  - provider: GitHub
+    tag: $(project_name)-v$(appveyor_build_version)
+    description: $(project_name)-v$(appveyor_build_version) has been released
+    auth_token:
+      secure: 3tp7rCl4cvk/WDYBaeodIlmalNiYVWQYxE1wmVU7aMbkMKP0WtlMjjOU2yhX0D4n
+    on:
+      branch: release/all
+      platform: Any CPU
+      configuration: Release
   after_deploy:
   - cmd: git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:github_auth_token):x-oauth-basic@github.com`n"
