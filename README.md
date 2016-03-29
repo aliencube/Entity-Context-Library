@@ -1,252 +1,154 @@
 # Entity Context Library #
 
-**Entity Context Library (ECL)** provides a common and reusable interfaces for projects using [Entity Framework](http://www.asp.net/entity-framework).
+**Entity Context Library (ECL)** provides a common and reusable interfaces for projects using [Entity Framework](https://docs.efproject.net).
+
+> NOTE: **ECL** `1.x` document can be found at [README-1.x.md](README-1.x.md).
 
 
 ## Package Status ##
 
-[![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/) 
+[![Build status](https://ci.appveyor.com/api/projects/status/06bu85cjywdlfa51/branch/dev?svg=true)](https://ci.appveyor.com/project/justinyoo/entity-context-library/branch/dev) [![](https://img.shields.io/nuget/v/Aliencube.EntityContextLibrary.svg)](https://www.nuget.org/packages/Aliencube.EntityContextLibrary/)
+
+
+## Entity Framework Support ##
+
+**ECL** `2.x` supports Entity Framework 7.
 
 
 ## Getting Started ##
 
-**ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IBaseRepository`, `IUnitOfWork` and `IUnitOfWorkManager`.
+**ECL** provides of four distinctive interfaces &ndash; `IDbContextFactory`, `IUnitOfWork` and `IUnitOfWorkManager`.
 
 
 ### `IDbContextFactory` ###
 
-`IDbContextFactory` interface provides a simple interface to return a `DbContext` instance based on type. This can be useful when multiple database connection strings are used in one application. Here's a sample code snippet, assuming [`Autofac`](http://autofac.org) is used together, as an IoC container.
+`IDbContextFactory` provides a simple way to consolidate all registered `DbContext` instances. With an IoC container like `Autofac` in ASP.NET Core application, it can be done in `Startup.cs` like:
 
 ```csharp
-using Autofac;
-...
-
-public static class Program
+public IServiceProvider ConfigureServices(IServiceCollection services)
 {
-  private const string MY_DB_CONTEXT = "MyDbContextName";
-  private const string ANOTHER_DB_CONTEXT = "AnotherDbContextName";
+  ...
 
-  public static void Main(string[] args)
+  services.AddEntityFramework()
+      .AddRelational()
+      .AddSqlServer()
+      .AddDbContext<ProductDbContext>(o => o.UseSqlServer(productDbConnectionString)())
+      .AddDbContext<UserDbContext>(o => o.UseSqlServer(userDbConnectionString)());
+
+  var builder = new ContainerBuilder();
+  builder.Register(c => new DbContextFactory(
+                            c.Resolve<ProductDbContext>(),
+                            c.Resolve<UserDbContext>()))
+    .As<IDbContextFactory>()
+    .PropertiesAutowired()
+    .InstancePerLifetimeScope();
+
+  builder.Populate(services);
+  return builder.Build().Resolve<IServiceProvider>();
+}
+```
+
+
+### `IUnitOfWork` ###
+
+`IUnitOfWork` interface handles database transactions for `INSERT`, `UPDATE` and `DELETE`. Therefore it provides transaction related methods like `BeginTransaction`, `Commit` and `Rollback`. You can use this within your service layer or database access layer like:
+
+```csharp
+using (var uow = new UnitOfWork<ProductDbContext>(dbContextFactory))
+{
+  uow.BeginTransaction();
+  
+  try
   {
-    var builder = new ContainerBuilder();
+    // DO TRANSACTIONS
 
-    // Register MyDbContext with DbContextFactory.
-    builder.RegisterType<DbContextFactory<MyDbContext>>()
-           .Named<IDbContextFactory>(SERVICE_NAME)
-           .As<IDbContextFactory>();
-
-    // Register AnotherDbContext with DbContextFactory.
-    builder.RegisterType<DbContextFactory<AnotherDbContext>>()
-           .Named<IDbContextFactory>(SERVICE_NAME)
-           .As<IDbContextFactory>();
-    ...
-
-    _container = builder.Build();
+    context.SaveChanges();
+    uow.Commit();
+  }
+  catch
+  {
+    uow.Rollback();
+    throw;
   }
 }
-
 ```
 
-
-### `IBaseRepository` ###
-
-`IBaseRepository` interface provides a basic CRUD methods for each repository representing a table in a database. Therefore, each repository can just inherit the base repository class and use it. In addition to this, all methods like `Get`, `Add`, `AddRange`, `Update`, `UpdateRange`, `Delete` and `DeleteRange` methods are overrideable, so you can redefine your way of `SELECT`, `INSERT`, `UPDATE` and `DELETE` actions. Here's a sample usage.
+If your application handles multiple `DbContext` instances, you can try the following approach:
 
 ```csharp
-// Assuming that the contextFactory instance already exists.
-IBaseRepository<Product> productRepository = new BaseRepository<Product>(contextFactory);
-
-var product = new Product() { ProductId = 1 };
-productRepository.Add(product);
-```
-
-If you want to extend more, you can do the following:
-
-```csharp
-public interface IProductRepository : IBaseRepository<Product>
+var types = new List<Type>() { typeof(ProductDbContext), typeof(UserDbContext) };
+using (var uow = new UnitOfWork<ProductDbContext>(dbContextFactory, types))
 {
-  // You can put as many methods as you want here.
-}
-
-public class ProductRepository : BaseRepository<Product>, IProductRepository
-{
-  public ProductRepository(IDbContextFactory contextFactory)
-    : base(contextFactory)
+  uow.BeginTransaction();
+  
+  try
   {
+    // DO TRANSACTIONS
+
+    productDbContext.SaveChanges();
+    userDbContext.SaveChanges();
+    uow.Commit();
   }
-
-  // You can here implement methods defined in the interface above. 
+  catch
+  {
+    uow.Rollback();
+    throw;
+  }
 }
-
-...
-
-IProductRepository productRepository = new ProductRepository(contextFactory);
-
-var product = new Product() { ProductId = 1 };
-productRepository.Add(product);
-```
-
-
-#### Async Methods ####
-
-`Add`, `AddRange`, `Update`, `UpdateRange`, `Delete` and `DeleteRange` have their corresponding async methods like `AddAsync`, `AddRangeAsync`, `UpdateAsync`, `UpdateRangeAsync`, `DeleteAsync` and `DeleteRangeAsync` in `IBaseRepository`. Therefore, you can get benefits from async programming.
-
-```csharp
-var product = new Product() { ProductId = 1 };
-await productRepository.AddAsync(product);
-```
-
-
-#### Stored Procedures ####
-
-`IBaseRepository` also provides methods to run stored procedures:
-
-* `ExecuteStoreQuery` is used mainly for `SELECT` statement.
-
-```csharp
-var results = productRepository.ExecuteStoreQuery<Product>("EXEC GetProduct @ProductId", new { ProductId = 1 });
-```
-
-* `ExecuteStoreCommand` is used mainly for `INSERT`, `UPDATE` and `DELETE` statements.
-
-```csharp
-var result = productRepository.ExecuteStoreCommand("EXEC AddProduct @Name, @Description, @Price", new { Name = "My Product", Description = "This is awesome", Price = 10.00M });
-```
-
-With `Autofac`, you can put a line of code into the IoC container:
-
-```csharp
-// Register Product Repository #1:
-builder.Register(p => new BaseRepository<Product>(p.ResolveNamed<IDbContextFactory>(SERVICE_NAME)))
-       .As<IBaseRepository<Product>>();
-
-// Register Product Repository #2:
-builder.Register(p => new ProductRepository(p.ResolveNamed<IDbContextFactory>(SERVICE_NAME)))
-       .As<IProductRepository>();
 ```
 
 
 ### `IUnitOfWorkManager` ###
 
-`IUnitOfWorkManager` interface only provides one method, `CreateInstance` to create and dispose `UnitOfWork` instance. With `Autofac`, you can put a line of code into the IoC container:
+`IUnitOfWorkManager` interface provides methods, `CreateInstance<TContext>()`, `CreateInstance(Type)` and `CreateInstance(IEnumearable<Type>)` to manage `UnitOfWork` instance. With `Autofac`, you can put a line of code into the IoC container:
 
 ```csharp
-// Register UnitOfWorkManager.
-builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(MY_DB_CONTEXT)))
-       .As<IUnitOfWorkManager>();
+builder.RegisterType<UnitOfWorkManager>().As<IUnitOfWorkManager>();
 ```
 
-If you want to handle multiple `DbContext` instances, you can add as many `DbContext` instances as you want.
+Once the `UnitOfWorkManager` is registered, your application use `UnitOfWork` instance like:
 
 ```csharp
-// Register UnitOfWorkManager.
-builder.Register(p => new UnitOfWorkManager(p.ResolveNamed<IDbContextFactory>(MY_DB_CONTEXT),
-                                            p.ResolveNamed<IDbContextFactory>(ANOTHER_DB_CONTEXT)))
-       .As<IUnitOfWorkManager>();
-```
-
-### `IUnitOfWork` ###
-
-`IUnitOfWork` interface handles database transactions for `INSERT`, `UPDATE` and `DELETE`. Therefore it provides transaction related methods like `BeginTransaction`, `SaveChanges`, `Commit` and `Rollback`. You can use this within your database access layer like:
-
-```csharp
-// ProductQueryManager performs INSERT/UPDATE/DELETE actions.
-public class ProductQueryManager
+using (var uow = uowm.CreateInstance<ProductDbContext>())
 {
-  private readonly IUnitOfWorkManager _uowm;
-  private readonly IProductRepository _product;
-
-  public ProductQueryManager(IUnitOfWorkManager uowm, IProductRepository product)
+  uow.BeginTransaction();
+  
+  try
   {
-    if (uowm == null)
-    {
-      throw new ArgumentNullException("uowm");
-    }
-    this._uowm = uowm;
+    // DO TRANSACTIONS
 
-    if (product == null)
-    {
-      throw new ArgumentNullException("product");
-    }
-    this._product = product;
+    productDbContext.SaveChanges();
+    userDbContext.SaveChanges();
+    uow.Commit();
   }
-
-  // Adds a product into the table.
-  public bool Add(Product product)
+  catch
   {
-    using (var uow = this._uowm.CreateInstance<MyDbContext>())
-    {
-      uow.BeginTransaction();
-
-      try
-      {
-        this._productRepository.Add(product);
-        uow.Commit();
-        return true;
-      }
-      catch (Exception ex)
-      {
-        uow.Rollback();
-
-        //
-        // Do some error handling logic here.
-        //
-
-        return false;
-      }
-    }
+    uow.Rollback();
+    throw;
   }
+}
+```
 
-  // Updates a product on the table.
-  public bool Update(Product product)
+If your application deals with mutliple `DbContext` instances, you can try instead:
+
+```csharp
+var types = new List<Type>() { typeof(ProductDbContext), typeof(UserDbContext) };
+using (var uow = uowm.CreateInstance(types))
+{
+  uow.BeginTransaction();
+  
+  try
   {
-    using (var uow = this._uowm.CreateInstance<MyDbContext>())
-    {
-      uow.BeginTransaction();
+    // DO TRANSACTIONS
 
-      try
-      {
-        this._productRepository.Update(product);
-        uow.Commit();
-        return true;
-      }
-      catch (Exception ex)
-      {
-        uow.Rollback();
-
-        //
-        // Do some error handling logic here.
-        //
-
-        return false;
-      }
-    }
+    productDbContext.SaveChanges();
+    userDbContext.SaveChanges();
+    uow.Commit();
   }
-
-  // Deletes a product from the table.
-  public bool Delete(Product product)
+  catch
   {
-    using (var uow = this._uowm.CreateInstance<MyDbContext>())
-    {
-      uow.BeginTransaction();
-
-      try
-      {
-        this._productRepository.Delete(product);
-        uow.Commit();
-        return true;
-      }
-      catch (Exception ex)
-      {
-        uow.Rollback();
-
-        //
-        // Do some error handling logic here.
-        //
-
-        return false;
-      }
-    }
+    uow.Rollback();
+    throw;
   }
 }
 ```
