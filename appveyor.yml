@@ -1,6 +1,6 @@
 # for dev/master branch
 -
-  version: 2.0.0-alpha-{build}
+  version: 2.0.0-rc1-{build}
   pull_requests:
     do_not_increment_build_number: true
   branches:
@@ -25,7 +25,7 @@
 
 # for release/all branch
 -
-  version: 2.0.0-alpha-{build}
+  version: 2.0.0-rc1-{build}
   pull_requests:
     do_not_increment_build_number: true
   branches:
