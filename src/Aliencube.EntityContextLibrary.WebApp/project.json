@@ -27,10 +27,10 @@
   },
 
   "dependencies": {
+    "Aliencube.EntityContextLibrary": "2.0.0-rc1-*",
+    "Aliencube.EntityContextLibrary.Models": "2.0.0-rc1-*",
     "Autofac": "4.0.0-rc1-177",
     "Autofac.Extensions.DependencyInjection": "4.0.0-rc1-177",
-    "EntityContextLibrary": "2.0.0-rc1-*",
-    "EntityContextLibrary.Models": "2.0.0-rc1-*",
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "EntityFramework.InMemory": "7.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EntityContextLibrary")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Entity Framework Context Library")]
+[assembly: AssemblyDescription("Entity Framework Context Library (ECL) to support DbContext, UnitOfWork and repository pattern using Entity Framework 7.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EntityContextLibrary")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Aliencube Community")]
+[assembly: AssemblyProduct("Aliencube.EntityContextLibrary")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

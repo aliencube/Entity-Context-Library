@@ -47,8 +47,8 @@
   },
 
   "dependencies": {
-    "EntityContextLibrary": "2.0.0-rc1-*",
-    "EntityContextLibrary.Models": "2.0.0-rc1-*",
+    "Aliencube.EntityContextLibrary": "2.0.0-rc1-*",
+    "Aliencube.EntityContextLibrary.Models": "2.0.0-rc1-*",
     "EntityFramework.InMemory": "7.0.0-rc1-final",
     "FluentAssertions": "4.2.2",
     "xunit": "2.2.0-beta1-build3239",
