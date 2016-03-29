@@ -42,7 +42,7 @@
     assembly_file_version: '{version}'
     assembly_informational_version: '{version}'
   environment:
-    project_name: EntityContextLibrary
+    project_name: Aluencube.EntityContextLibrary
     github_auth_token:
       secure: 3tp7rCl4cvk/WDYBaeodIlmalNiYVWQYxE1wmVU7aMbkMKP0WtlMjjOU2yhX0D4n
   install:
