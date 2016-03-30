@@ -15,7 +15,7 @@
   - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
   - cmd: dnvm install 1.0.0-rc1-update1
   build_script:
-  - ps: ./build-solution.ps1 -Config $(configuration)
+  - ps: ./build-solution.ps1 -Config $env:configuration
   test_script:
   - ps: ./run-tests.ps1
 
@@ -46,12 +46,13 @@
   - cmd: dnvm install 1.0.0-rc1-update1
   nuget:
     account_feed: true
-    disable_publish_on_pr: true  build_script:
-  - ps: ./run-project-versioning.ps1 -Project $(project_name)
-  - ps: ./build-solution.ps1 -Config $(configuration)
+    disable_publish_on_pr: true
+  build_script:
+  - ps: ./run-project-versioning.ps1 -Project $env:project_name
+  - ps: ./build-solution.ps1 -Config $env:configuration
   test_script:
   - ps: ./run-tests.ps1
-  - ps: ./publish-package.ps1 -Config $(configuration) -Project $(project_name)
+  - ps: ./publish-package.ps1 -Config $env:configuration -Project $env:project_name
   artifacts:
   - path: artifacts\bin\$(proejct_name)\$(configuration)\*.nupkg
     name: Aliencube.EntityContextLibrary
