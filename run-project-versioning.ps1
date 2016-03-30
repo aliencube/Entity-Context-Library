@@ -1,10 +1,21 @@
-# This PowerShel script appends AppVeyor build number to the package version.
+# Parameters
+#   All parameters are optional. They need to be provided if this is run at developers' local environment.
+#   If they are not provided, the environment variables from AppVeyor will be used as default.
+#
+#   $Project: Name of project.
+Param(
+    [string] [Parameter(Mandatory=$false)] $Project
+)
 
-$project = "Aliencube.EntityContextLibrary"
+$projectName = $env:project_name
 
-Write-Host "`nUpdate verion on the $project project`n" -ForegroundColor Green
+if (![string].IsNullOrWhiteSpace($Project)) {
+    $projectName = $Project
+}
 
-cd ./src/$project
+Write-Host "`nUpdate verion on the $projectName project`n" -ForegroundColor Green
+
+cd ./src/$projectName
 
 npm install
 

@@ -3,25 +3,31 @@
 #   If they are not provided, the environment variables from AppVeyor will be used as default.
 #
 #   $Config: Name of configuration. eg) Debug, Release
+#   $Project: Name of project.
 Param(
-    [string] [Parameter(Mandatory=$false)] $Config
+    [string] [Parameter(Mandatory=$false)] $Config,
+    [string] [Parameter(Mandatory=$false)] $Project
 )
 
-$configuration = "Debug"
+$configuration = $env:configuration
 
 if (![string]::IsNullOrWhiteSpace($Config))
 {
     $configuration = $Config
 }
 
-$project = "Aliencube.EntityContextLibrary"
+$projectName = $env:project_name
+
+if (![string].IsNullOrWhiteSpace($Project)) {
+    $projectName = $Project
+}
 
 # Display project name
-Write-Host "`nPublish the $project project to as a NuGet package`n" -ForegroundColor Green
+Write-Host "`nPublish the $projectName project to as a NuGet package`n" -ForegroundColor Green
 
 dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
 
-dnu pack .\src\$project --out .\artifacts\bin\$project --configuration $Config
+dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $configuration
 
 # Get-ChildItem *.nupkg -Recurse
 # dir ".\artifacts\bin\$env:project_name\$env:configuration\*.*"
