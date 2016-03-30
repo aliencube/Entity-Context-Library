@@ -12,6 +12,15 @@ var updateVersion = function (err, project) {
     }
 
     var buildNumber = process.env.APPVEYOR_BUILD_NUMBER;
+    if (process.argv[2] != undefined) {
+        buildNumber = process.argv[2];
+    }
+
+    if (buildNumber == undefined) {
+        console.error("No build number");
+        return;
+    }
+
     var version = semver.valid(project.version.replace(/\-(alpha|beta|rc\d*)\-\*/i, "-$1-" + buildNumber));
     project.version = version;
 
