@@ -14,7 +14,7 @@ if (![string]::IsNullOrWhiteSpace($Config))
     $configuration = $Config
 }
 
-dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
 
 $exitCode = 0
 
@@ -27,7 +27,7 @@ foreach($project in $projects) {
     Write-Host "`nBuild the $projectName project`n" -ForegroundColor Green
 
     # Build project
-    dnu build $projectPath --out .\artifacts\bin\$projectName --configuration $configuration
+    dnu build $projectPath --out .\artifacts\bin\$projectName --configuration $configuration --quiet
 
     $exitCode += $LASTEXITCODE
 }

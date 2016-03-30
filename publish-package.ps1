@@ -19,12 +19,13 @@ $project = "Aliencube.EntityContextLibrary"
 # Display project name
 Write-Host "`nPublish the $project project to as a NuGet package`n" -ForegroundColor Green
 
-dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
 
 dnu pack .\src\$project --out .\artifacts\bin\$project --configuration $Config
 
 # Get-ChildItem *.nupkg -Recurse
-dir ".\artifacts\bin\$env:project_name\$env:configuration"
+# dir ".\artifacts\bin\$env:project_name\$env:configuration\*.*"
+Get-ChildItem *.nupkg -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
 if ($LASTEXITCODE -ne 0) {
     $host.SetShouldExit($exitCode)
