@@ -67,7 +67,7 @@
       configuration: Release
   - provider: GitHub
     tag: v$(appveyor_build_version)
-    description: $(project_name)-v$(appveyor_build_version) has been released
+    description: $(project_name-v$(appveyor_build_version) has been released
     auth_token:
       secure: 3tp7rCl4cvk/WDYBaeodIlmalNiYVWQYxE1wmVU7aMbkMKP0WtlMjjOU2yhX0D4n
     artifact: Aliencube.EntityContextLibrary
