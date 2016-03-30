@@ -23,7 +23,8 @@ dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
 
 dnu pack .\src\$project --out .\artifacts\bin\$project --configuration $Config
 
-Get-ChildItem *.nupkg -Recurse
+# Get-ChildItem *.nupkg -Recurse
+dir ".\artifacts\bin\$env:project_name\$env:configuration"
 
 if ($LASTEXITCODE -ne 0) {
     $host.SetShouldExit($exitCode)
