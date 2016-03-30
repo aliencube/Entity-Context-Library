@@ -31,7 +31,7 @@ dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $
 
 # Get-ChildItem *.nupkg -Recurse
 # dir ".\artifacts\bin\$env:project_name\$env:configuration\*.*"
-Get-ChildItem *.nupkg -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+# Get-ChildItem *.nupkg -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 
 if ($LASTEXITCODE -ne 0) {
     $host.SetShouldExit($exitCode)
