@@ -15,7 +15,7 @@ namespace Aliencube.EntityContextLibrary.Interfaces
         /// </summary>
         /// <typeparam name="TContext">Type of database context inheriting the <see cref="DbContext"/> class.</typeparam>
         /// <returns>Returns the <see cref="DbContext"/> instance.</returns>
-        DbContext GetDbContext<TContext>() where TContext : DbContext;
+        TContext GetDbContext<TContext>() where TContext : DbContext;
 
         /// <summary>
         /// Gets the <see cref="DbContext"/> instance.

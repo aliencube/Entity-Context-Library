@@ -47,7 +47,7 @@ namespace Aliencube.EntityContextLibrary
         /// </summary>
         /// <typeparam name="TContext">Type of database context inheriting the <see cref="DbContext"/> class.</typeparam>
         /// <returns>Returns the <see cref="DbContext"/> instance.</returns>
-        public DbContext GetDbContext<TContext>() where TContext : DbContext
+        public TContext GetDbContext<TContext>() where TContext : DbContext
         {
             var context = this._dbContexts.OfType<TContext>().SingleOrDefault();
             if (context == null)
