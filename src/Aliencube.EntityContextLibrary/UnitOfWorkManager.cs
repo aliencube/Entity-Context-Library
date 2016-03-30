@@ -31,6 +31,36 @@ namespace Aliencube.EntityContextLibrary
         }
 
         /// <summary>
+        /// Gets the <see cref="DbContext"/> instance.
+        /// </summary>
+        /// <typeparam name="TContext">Type of database context inheriting the <see cref="DbContext"/> class.</typeparam>
+        /// <returns>Returns the <see cref="DbContext"/> instance.</returns>
+        public TContext GetDbContext<TContext>() where TContext : DbContext
+        {
+            return this._contextFactory.GetDbContext<TContext>();
+        }
+
+        /// <summary>
+        /// Gets the <see cref="DbContext"/> instance.
+        /// </summary>
+        /// <param name="type">Type of database context inheriting the <see cref="DbContext"/> class.</param>
+        /// <returns>Returns the <see cref="DbContext"/> instance.</returns>
+        public DbContext GetDbContext(Type type)
+        {
+            return this._contextFactory.GetDbContext(type);
+        }
+
+        /// <summary>
+        /// Gets the list of the <see cref="DbContext"/> instances.
+        /// </summary>
+        /// <param name="types">List of database context types.</param>
+        /// <returns>Returns the list of the <see cref="DbContext"/> instances.</returns>
+        public IEnumerable<DbContext> GetDbContexts(IEnumerable<Type> types)
+        {
+            return this._contextFactory.GetDbContexts(types);
+        }
+
+        /// <summary>
         /// Creates the <see cref="DbContext"/> instance with given type.
         /// </summary>
         /// <typeparam name="TContext">Database context type inheriting the <see cref="DbContext"/> class.</typeparam>
