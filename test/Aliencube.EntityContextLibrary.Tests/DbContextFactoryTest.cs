@@ -9,6 +9,8 @@ using Aliencube.EntityContextLibrary.Tests.Fixtures;
 
 using FluentAssertions;
 
+using Microsoft.Data.Entity;
+
 using Xunit;
 
 namespace Aliencube.EntityContextLibrary.Tests
@@ -65,11 +67,11 @@ namespace Aliencube.EntityContextLibrary.Tests
         [Fact]
         public void Given_TContext_GetDbContext_ShouldReturn_Result()
         {
-            var context = this._contextFactory.GetDbContext<ProductDbContext>();
-            context.Should().BeOfType<ProductDbContext>();
+            var productDbContext = this._contextFactory.GetDbContext<ProductDbContext>();
+            productDbContext.Should().BeOfType<ProductDbContext>();
 
-            context = this._contextFactory.GetDbContext<UserDbContext>();
-            context.Should().BeOfType<UserDbContext>();
+            var userDbContext = this._contextFactory.GetDbContext<UserDbContext>();
+            userDbContext.Should().BeOfType<UserDbContext>();
         }
 
         /// <summary>
