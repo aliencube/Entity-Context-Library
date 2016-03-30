@@ -9,7 +9,7 @@ Param(
 
 $projectName = $env:project_name
 
-if (![string].IsNullOrWhiteSpace($Project)) {
+if (![string]::IsNullOrWhiteSpace($Project)) {
     $projectName = $Project
 }
 
