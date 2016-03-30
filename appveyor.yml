@@ -48,26 +48,26 @@
     account_feed: true
     disable_publish_on_pr: true
   build_script:
-  - ps: ./run-project-versioning.ps1 -Project Aliencube.EntityContextLibrary
+  - ps: ./run-project-versioning.ps1 -Project $env:project_name
   - ps: ./build-solution.ps1 -Config $env:configuration
   test_script:
   - ps: ./run-tests.ps1
-  - ps: ./publish-package.ps1 -Config $env:configuration -Project Aliencube.EntityContextLibrary
+  - ps: ./publish-package.ps1 -Config $env:configuration -Project $env:project_name
   artifacts:
-  - path: artifacts\bin\Aliencube.EntityContextLibrary\$(configuration)\*.nupkg
+  - path: artifacts\bin\$(project_name)\$(configuration)\*.nupkg
     name: Aliencube.EntityContextLibrary
   deploy:
   - provider: NuGet
     api_key:
       secure: ZdI7BA2YRQg/yRMPbRGTTJeGWj3X3o8kNhf4LeA5YkV072GpmKwQ3aW+KVgMbkZX
-    artifact: EntityContextLibrary
+    artifact: Aliencube.EntityContextLibrary
     on:
       branch: release/all
       platform: Any CPU
       configuration: Release
   - provider: GitHub
     tag: v$(appveyor_build_version)
-    description: Aliencube.EntityContextLibrary-v$(appveyor_build_version) has been released
+    description: $(project_name)-v$(appveyor_build_version) has been released
     auth_token:
       secure: 3tp7rCl4cvk/WDYBaeodIlmalNiYVWQYxE1wmVU7aMbkMKP0WtlMjjOU2yhX0D4n
     artifact: Aliencube.EntityContextLibrary
