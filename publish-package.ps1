@@ -27,6 +27,10 @@ Write-Host "`nPublish the $projectName project to as a NuGet package`n" -Foregro
 
 dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
 
+if ($LASTEXITCODE -ne 0) {
+    $host.SetShouldExit($exitCode)
+}
+
 dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $configuration
 
 # Get-ChildItem *.nupkg -Recurse
