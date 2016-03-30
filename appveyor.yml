@@ -47,19 +47,15 @@
   install:
   - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
   - cmd: dnvm install 1.0.0-rc1-update1
-  before_build:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  build_script:
   - ps: ./run-project-versioning.ps1
-  build:
-    publish_nuget: true
-    publish_nuget_symbols: true
-    verbosity: quiet
+  - ps: ./build-solution.ps1 -Config Release
   test_script:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
   - ps: ./run-tests.ps1
+  - ps: ./publish-package.ps1 -Config Release
   artifacts:
-  - path: artifacts\bin\$(project_name)\$(configuration)\*.nupkg
-    name: EntityContextLibrary
+  - path: artifacts\bin\$(proejct_name)\$(configuration)\*.nupkg
+    name: Aliencube.EntityContextLibrary
   deploy:
   - provider: NuGet
     api_key:
@@ -70,10 +66,11 @@
       platform: Any CPU
       configuration: Release
   - provider: GitHub
-    tag: $(project_name)-v$(appveyor_build_version)
+    tag: v$(appveyor_build_version)
     description: $(project_name)-v$(appveyor_build_version) has been released
     auth_token:
       secure: 3tp7rCl4cvk/WDYBaeodIlmalNiYVWQYxE1wmVU7aMbkMKP0WtlMjjOU2yhX0D4n
+    artifact: Aliencube.EntityContextLibrary
     on:
       branch: release/all
       platform: Any CPU
