@@ -31,7 +31,7 @@ if ($LASTEXITCODE -ne 0) {
     $host.SetShouldExit($exitCode)
 }
 
-dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $configuration
+dnu pack .\src\$projectName --out .\artifacts\bin\$projectName --configuration $configuration --quiet
 
 # Get-ChildItem *.nupkg -Recurse
 # dir ".\artifacts\bin\$env:project_name\$env:configuration\*.*"
