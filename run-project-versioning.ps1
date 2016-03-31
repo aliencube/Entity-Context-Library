@@ -21,4 +21,10 @@ npm install
 
 node project-version.js
 
+$exitCode = $LASTEXITCODE
+
 cd ../../
+
+if($exitCode -ne 0) {
+    $host.SetShouldExit($exitCode)
+}

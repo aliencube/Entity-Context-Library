@@ -16,6 +16,10 @@ if (![string]::IsNullOrWhiteSpace($Config))
 
 dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
 
+if($LASTEXITCODE -ne 0) {
+    $host.SetShouldExit($LASTEXITCODE)
+}
+
 $exitCode = 0
 
 $projects = Get-ChildItem .\src, .\test | ?{$_.PsIsContainer}
