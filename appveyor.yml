@@ -56,14 +56,15 @@
   - provider: NuGet
     api_key: $(nuget_api_key)
     artifact: Aliencube.EntityContextLibrary
+    skip_symbols: true
     on:
       branch: release/all
       platform: Any CPU
       configuration: Release
   - provider: GitHub
     tag: v$(appveyor_build_version)
-    description: $(project_name-v$(appveyor_build_version) has been released
-    auth_token: $(git_auth_token)
+    description: $(project_name)-v$(appveyor_build_version) has been released
+    auth_token: $(github_auth_token)
     artifact: Aliencube.EntityContextLibrary
     on:
       branch: release/all

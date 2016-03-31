@@ -10,8 +10,8 @@
   "licenseUrl": "https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE",
   "projectUrl": "https://github.com/aliencube/Entity-Context-Library",
   "title": "Entity Framework Context Library",
-  "summary": "Entity Framework Context Library (ECL) to support DbContext, UnitOfWork and repository pattern using Entity Framework 7.",
-  "description": "Entity Framework Context Library (ECL) provides a factory class for DbContext, UnitOfWork class for transaction and a base repository class to be used for each database entity.",
+  "summary": "Entity Framework Context Library (ECL) to provide DbContextFactory, UnitOfWork and UnitOfWorkManager using Entity Framework 7.",
+  "description": "Entity Framework Context Library (ECL) provides DbContextFactory to support mutliple DbContext instances within a UnitOfWork transaction scope through UnitOfWorkManager, using Entity Framework 7.",
   "tags": [
     "Aliencube",
     "Entity Framework",
