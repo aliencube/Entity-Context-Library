@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Aliencube.EntityContextLibrary.Interfaces;
 
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary
 {

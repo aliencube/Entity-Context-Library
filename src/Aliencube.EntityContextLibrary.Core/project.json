@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0-alpha-*",
+  "requireLicenseAcceptance": true,
+  "authors": [
+    "justinyoo"
+  ],
+  "owners": [
+    "justinyoo"
+  ],
+  "licenseUrl": "https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE",
+  "projectUrl": "https://github.com/aliencube/Entity-Context-Library",
+  "title": "Entity Framework Context Library",
+  "summary": "Entity Framework Context Library (ECL) to provide DbContextFactory, UnitOfWork and UnitOfWorkManager using Entity Framework 7.",
+  "description": "Entity Framework Context Library (ECL) provides DbContextFactory to support mutliple DbContext instances within a UnitOfWork transaction scope through UnitOfWorkManager, using Entity Framework 7.",
+  "tags": [
+    "Aliencube",
+    "Entity Framework",
+    "EF",
+    "EF7",
+    "DbContext",
+    "UnitOfWork",
+    "Repository Pattern"
+  ],
+
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Runtime": "4.0.10.0"
+      }
+    },
+    "dnx451": { },
+    "dnxcore50": { }
+  },
+
+  "dependencies": {
+    "EntityFramework.Relational": "7.0.0-rc1-final"
+  }
+}

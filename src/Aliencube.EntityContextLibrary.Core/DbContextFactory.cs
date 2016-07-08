@@ -6,7 +6,7 @@ using System.Reflection;
 using Aliencube.EntityContextLibrary.Extensions;
 using Aliencube.EntityContextLibrary.Interfaces;
 
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Entity;
 
 namespace Aliencube.EntityContextLibrary
 {

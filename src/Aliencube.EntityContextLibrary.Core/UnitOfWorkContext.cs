@@ -4,8 +4,8 @@ using System.Data.Common;
 
 using Aliencube.EntityContextLibrary.Interfaces;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Storage;
 
 namespace Aliencube.EntityContextLibrary
 {
@@ -19,7 +19,7 @@ namespace Aliencube.EntityContextLibrary
         private readonly TContext _dbContext;
         private readonly DbConnection _dbConnection;
 
-        private IDbContextTransaction _transaction;
+        private IRelationalTransaction _transaction;
         private bool _disposed;
 
         /// <summary>

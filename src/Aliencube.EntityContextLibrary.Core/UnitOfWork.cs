@@ -7,8 +7,8 @@ using System.Linq;
 using Aliencube.EntityContextLibrary.Extensions;
 using Aliencube.EntityContextLibrary.Interfaces;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Storage;
 
 namespace Aliencube.EntityContextLibrary
 {
@@ -20,7 +20,7 @@ namespace Aliencube.EntityContextLibrary
         private readonly IEnumerable<DbContext> _dbContexts;
         private readonly IEnumerable<DbConnection> _dbConnections;
 
-        private IEnumerable<IDbContextTransaction> _dbTransactions;
+        private IEnumerable<IRelationalTransaction> _dbTransactions;
         private bool _disposed;
 
         /// <summary>

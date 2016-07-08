@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace Aliencube.EntityContextLibrary.Extensions
 {
@@ -42,7 +42,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="dbSet"><see cref="DbSet{TEntity}"/> instance.</param>
         /// <param name="keyValues">List of key values to find entity.</param>
         /// <typeparam name="TEntity">Database entity type.</typeparam>
-        /// <returns>Returns the entity found.</returns>
+        /// <returns>Returns the <see cref="TEntity"/> found.</returns>
         /// <remarks>Reference: http://stackoverflow.com/questions/29030472/dbset-doesnt-have-a-find-method-in-ef7</remarks>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         public static TEntity Find<TEntity>(this DbSet<TEntity> dbSet, params object[] keyValues) where TEntity : class
@@ -88,7 +88,7 @@ namespace Aliencube.EntityContextLibrary.Extensions
         /// <param name="dbSet"><see cref="DbSet{TEntity}"/> instance.</param>
         /// <param name="keyValues">List of key values to find entity.</param>
         /// <typeparam name="TEntity">Database entity type.</typeparam>
-        /// <returns>Returns the entity found.</returns>
+        /// <returns>Returns the <see cref="TEntity"/> found.</returns>
         /// <remarks>Reference: http://stackoverflow.com/questions/29030472/dbset-doesnt-have-a-find-method-in-ef7</remarks>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         public static async Task<TEntity> FindAsync<TEntity>(this DbSet<TEntity> dbSet, params object[] keyValues) where TEntity : class
