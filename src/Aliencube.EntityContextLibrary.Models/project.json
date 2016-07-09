@@ -1,34 +1,30 @@
 {
-  "version": "1.0.0",
-  "requireLicenseAcceptance": true,
-  "authors": [
-    "justinyoo"
-  ],
-  "owners": [
-    "justinyoo"
-  ],
-  "licenseUrl": "https://github.com/aliencube/Entity-Context-Library/blob/master/LICENSE",
-  "projectUrl": "https://github.com/aliencube/Entity-Context-Library",
-  "title": "Entity Framework Context Library Sample Models",
-  "summary": "Entity Framework Context Library (ECL) to support DbContext, UnitOfWork and repository pattern using Entity Framework 7.",
-  "description": "Entity Framework Context Library (ECL) provides a factory class for DbContext, UnitOfWork class for transaction and a base repository class to be used for each database entity.",
-  "tags": [
-    "Aliencube",
-    "Entity Framework",
-    "EF",
-    "EF7",
-    "DbContext",
-    "UnitOfWork",
-    "Repository Pattern"
-  ],
+  "version": "2.0.0-*",
 
   "frameworks": {
-    "net451": { },
-    "dnx451": { },
-    "dnxcore50": { }
+    "net451": {
+      "dependencies": {
+        "System.Runtime": "4.0.10.0"
+      }
+    },
+
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "dnxcore50",
+        "portable-net45+win8"
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0",
+          "type": "platform"
+        }
+      }
+    }
   },
 
   "dependencies": {
-    "EntityFramework.Core": "7.0.0-rc1-final"
+    "Aliencube.EntityContextLibrary": "2.0.0-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
   }
 }
