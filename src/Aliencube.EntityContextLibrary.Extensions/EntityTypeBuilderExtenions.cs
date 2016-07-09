@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Aliencube.EntityContextLibrary.Interfaces;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Aliencube.EntityContextLibrary.Extensions

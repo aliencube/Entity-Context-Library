@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aliencube Community")]
-[assembly: AssemblyProduct("Aliencube.EntityContextLibrary")]
+[assembly: AssemblyProduct("Aliencube.EntityContextLibrary.Extensions")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("028e2ce0-ed9e-41e3-aee2-7f2a1b310233")]
+[assembly: Guid("c1a091ef-22fb-4db5-aaca-41030e03d5d0")]

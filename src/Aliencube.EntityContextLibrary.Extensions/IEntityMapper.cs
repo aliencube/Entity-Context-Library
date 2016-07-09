@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Aliencube.EntityContextLibrary.Interfaces
+namespace Aliencube.EntityContextLibrary.Extensions
 {
     /// <summary>
     /// This provides interface to entity mapper classes.

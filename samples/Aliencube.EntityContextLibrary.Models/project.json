@@ -24,7 +24,7 @@
   },
 
   "dependencies": {
-    "Aliencube.EntityContextLibrary": "2.0.0-*",
+    "Aliencube.EntityContextLibrary.Extensions": "2.0.0-*",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
   }
 }

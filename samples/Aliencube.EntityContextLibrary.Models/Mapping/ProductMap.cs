@@ -1,4 +1,4 @@
-﻿using Aliencube.EntityContextLibrary.Interfaces;
+﻿using Aliencube.EntityContextLibrary.Extensions;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
