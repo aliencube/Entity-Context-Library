@@ -30,7 +30,7 @@ namespace Aliencube.EntityContextLibrary.Models
         /// <summary>
         /// Gets or sets the ending date and time until the price is valid.
         /// </summary>
-        public DateTimeOffset ValidTo { get; set; }
+        public DateTimeOffset? ValidTo { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Product"/> instance.

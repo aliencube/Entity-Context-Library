@@ -21,8 +21,8 @@ namespace Aliencube.EntityContextLibrary.Models
         /// <summary>
         /// Initialises a new instance of the <see cref="UserDbContext"/> class.
         /// </summary>
-        /// <param name="options"><see cref="DbContextOptions"/> instance.</param>
-        public UserDbContext(DbContextOptions options)
+        /// <param name="options"><see cref="DbContextOptions{UserDbContext}"/> instance.</param>
+        public UserDbContext(DbContextOptions<UserDbContext> options)
             : base(options)
         {
         }
