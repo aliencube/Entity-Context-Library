@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-Aliencube.EntityContextLibrary.WebApp-1a978f93-fc10-4561-bcf4-d9e020d18465",
 
   "dependencies": {
@@ -42,7 +42,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "Aliencube.EntityContextLibrary.Models": "2.0.0-*"
   },
 
   "tools": {
