@@ -2,10 +2,6 @@
   "userSecretsId": "aspnet-Aliencube.EntityFrameworkCore.WebApp-57da4932-b216-4bef-b758-e7f199bbd00a",
 
   "dependencies": {
-    "Microsoft.NETCore.App": {
-      "version": "1.0.0",
-      "type": "platform"
-    },
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
@@ -61,11 +57,23 @@
   },
 
   "frameworks": {
+    "net451": {
+      "dependencies": {
+        "System.Runtime": "4.0.10.0"
+      }
+    },
     "netcoreapp1.0": {
       "imports": [
         "dotnet5.6",
+        "dnxcore50",
         "portable-net45+win8"
-      ]
+      ],
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0",
+          "type": "platform"
+        }
+      }
     }
   },
 
@@ -95,3 +103,4 @@
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
+

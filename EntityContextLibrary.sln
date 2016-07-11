@@ -10,15 +10,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{937DF47E-D43F-40ED-A171-93024E50EF31}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		apply-version.ps1 = apply-version.ps1
 		appveyor.yml = appveyor.yml
+		build-nuget-package.ps1 = build-nuget-package.ps1
 		build-solution.ps1 = build-solution.ps1
 		EntityContextLibrary.sln.DotSettings = EntityContextLibrary.sln.DotSettings
 		global.json = global.json
 		LICENSE = LICENSE
-		publish-package.ps1 = publish-package.ps1
 		README.md = README.md
-		run-project-versioning.ps1 = run-project-versioning.ps1
-		run-tests.ps1 = run-tests.ps1
 		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject

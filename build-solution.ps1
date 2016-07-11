@@ -1,41 +1,39 @@
-# Parameters
-#   All parameters are optional. They need to be provided if this is run at developers' local environment.
-#   If they are not provided, the environment variables from AppVeyor will be used as default.
-#
-#   $Config: Name of configuration. eg) Debug, Release
+# This script runs solution build.
 Param(
-    [string] [Parameter(Mandatory=$false)] $Config
+	[string] [Parameter(Mandatory=$false)] $Configuration = "Debug"
 )
 
-$configuration = $env:configuration
+# Restores NuGet packages
+Write-Host "Restoring NuGet packages ..." -ForegroundColor Green
 
-if (![string]::IsNullOrWhiteSpace($Config))
-{
-    $configuration = $Config
-}
+dotnet restore
 
-dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json --quiet
+Write-Host "NuGet packages restored" -ForegroundColor Green
 
-if($LASTEXITCODE -ne 0) {
-    $host.SetShouldExit($LASTEXITCODE)
-}
-
+# Builds each project
 $exitCode = 0
+$projects = Get-ChildItem .\src, .\test | ?{$_.PsIsContainer} | ?{$_.Name.Contains("Core")}
+foreach($project in $projects)
+{
+	$projectPath = $project.FullName
+	$projectName = $project.Name
 
-$projects = Get-ChildItem .\src, .\test | ?{$_.PsIsContainer}
-foreach($project in $projects) {
-    $projectPath = $project.FullName
-    $projectName = $project.Name
+	Write-Host "Building $projectName with $Configuration settings ..." -ForegroundColor Green
 
-    # Display project name
-    Write-Host "`nBuild the $projectName project`n" -ForegroundColor Green
+	dotnet build $projectPath --configuration $Configuration
 
-    # Build project
-    dnu build $projectPath --out .\artifacts\bin\$projectName --configuration $configuration --quiet
+	if ($LASTEXITCODE -ne 0)
+	{
+		Write-Host "Building $projectName failure" -ForegroundColor Red
+	}
+	else
+	{
+		Write-Host "Building $projectName success" -ForegroundColor Green
+	}
 
-    $exitCode += $LASTEXITCODE
+	$exitCode += $LASTEXITCODE
 }
 
 if($exitCode -ne 0) {
-    $host.SetShouldExit($exitCode)
+	$host.SetShouldExit($exitCode)
 }
