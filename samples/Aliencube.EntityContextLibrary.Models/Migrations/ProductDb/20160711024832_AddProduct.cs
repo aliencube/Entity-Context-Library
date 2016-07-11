@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Aliencube.EntityContextLibrary.Models.Migrations
+namespace Aliencube.EntityContextLibrary.Models.Migrations.ProductDb
 {
     public partial class AddProduct : Migration
     {

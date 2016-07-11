@@ -8,7 +8,7 @@ using Aliencube.EntityContextLibrary.Models;
 namespace Aliencube.EntityContextLibrary.Models.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20160709140018_AddUser")]
+    [Migration("20160711024909_AddUser")]
     partial class AddUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
